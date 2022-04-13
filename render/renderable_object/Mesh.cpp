@@ -28,26 +28,20 @@ Mesh::Mesh(Transform transform, unsigned int modelKey, std::vector<unsigned int>
 	}
 }
 
-void Mesh::Draw(const mat4 &view, const mat4 &proj)
+void Mesh::Draw(const mat4 &view)
 {
 	auto& meshes = m_model->getMeshes();
 	for (int i = 0; i < meshes.size(); i++)
 	{
-		//RCamera* camera = RManager::
-		//ñamera.initViewMatrix(view);
-		//shader.setMat4("projection", proj);
-		mat4 scale, rotate, transl, model, view2;
+		mat4 scale, rotate, transl, model;
+
 		initRotateTransform(rotate, getRotation());
 		initTranslationTransform(transl, getLocation());
 		initScaleTransform(scale, getScale());
-		model =  proj * view * transl * rotate * scale;
-		//view2 = view * proj;
-		//model = proj * view * model;
-		//model = model * view2;
+
+		model =  view * transl * rotate * scale;
 		(*m_shaders[i]).use();
-		//m_shaders[i]->setMat4("projection", proj);
-		//m_shaders[i]->setMat4("view", view2);
-		m_shaders[i]->setMat4("model", model);
+		m_shaders[i]->setMat4("viewModel", model);
 		meshes[i].Draw(*m_shaders[i]);
 	}
 }

@@ -10,7 +10,7 @@ constexpr unsigned int modelCount = 1;
 constexpr unsigned int shaderCount = 1;
 void AManager::init()
 {
-	ASSERT(m_AManager == nullptr, "AssetManager reinitialization")
+	ASSERT(!m_AManager, "AssetManager reinitialization")
 	ARef<AModel>** models = new ARef<AModel>*[modelCount];
 	ARef<AShader>** shaders = new ARef<AShader>*[shaderCount];
 	for (int i = 0; i < modelCount; i++)

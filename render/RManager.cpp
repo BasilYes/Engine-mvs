@@ -10,9 +10,6 @@ RManager* RManager::m_rManager = nullptr;
 GLFWwindow* RManager::m_window = nullptr;
 vec2 RManager::m_windowSize{ 800, 600 };
 
-static Mesh* mesh;
-static Mesh* mesh2;
-
 void processInput(GLFWwindow* window)
 {
     RCamera* camera = RManager::getRManager()->getActiveCamera();
@@ -32,21 +29,6 @@ void processInput(GLFWwindow* window)
         trans += vec3{ 0.0f,0.01f,0.0f };
     else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         trans += vec3{ 0.0f,-0.01f,0.0f };
-
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-        mesh->setRotation(mesh->getRotation() + vec3{ 0.0f, 0.0f,0.01f });
-    else if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-        mesh->setRotation(mesh->getRotation() + vec3{ 0.0f, 0.0f,-0.01f });
-
-    if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
-        mesh->setLocation(mesh->getLocation() + vec3{ 0.0f, 0.0f,0.01f });
-    else if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
-        mesh->setLocation(mesh->getLocation() + vec3{ 0.0f, 0.0f,-0.01f });
-
-    if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
-        mesh->setScale(mesh->getScale() + vec3{ 0.0f, 0.0f,0.01f });
-    else if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
-        mesh->setScale(mesh->getScale() + vec3{ 0.0f, 0.0f,-0.01f });
 
     mat3 rotat;
     initRotateTransform(rotat, camera->getRotation());
@@ -89,8 +71,7 @@ void initGLFW()
 
 void RManager::init()
 {
-    if (m_rManager)
-        ERROR("RenderManager reinitialization")
+    ASSERT(!m_rManager, "RenderManager reinitialization")
     initGLFW();
 
     m_rManager = new RManager();
@@ -109,10 +90,9 @@ void RManager::init()
 
     glEnable(GL_DEPTH_TEST);
 
-    ////////
-    mesh = new Mesh{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}} , 0, 0 };
-    mesh2 = new Mesh{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}} , 0, 0 };
-    ////////
+    /////////////////////////////////////
+    m_rManager->m_meshList.pushBack(new Mesh{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}} , 0, 0 });
+    /////////////////////////////////////
 }
 
 bool RManager::drawFrame()
@@ -124,11 +104,16 @@ bool RManager::drawFrame()
 
 
 
-    mat4 proj, view, cam;
+    mat4 proj, camera, view;
     initPersProjTransform(proj, 3.14f * 0.5f, m_windowSize[0], m_windowSize[1], 0.01f, 100.0f);
-    getRManager()->m_activeCamera->initViewMatrix(view);
-    mesh->Draw(view, proj);
-    mesh2->Draw(view, proj);
+    m_activeCamera->initViewMatrix(camera);
+    view = proj * camera;
+    LincedListItem<Mesh>* item = m_meshList.getFirst();
+    while (item != m_meshList.getEnd())
+    {
+        item->getContent()->Draw(view);
+        item = item->getNext();
+    }
 
 
 

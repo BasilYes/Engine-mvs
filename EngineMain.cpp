@@ -1,13 +1,15 @@
 #include "render/RManager.h"
 #include "asset/AManager.h"
 
+
+#include <debug.h>
 int main()
 {
 	AManager::init();
 	RManager::init();
 	while (true)
 	{
-		if (!RManager::drawFrame())
+		if (!RManager::getRManager()->drawFrame())
 			return 0;
 	}
 }

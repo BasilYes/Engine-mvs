@@ -1,4 +1,5 @@
 #pragma once
+#include "debug.h"
 template<typename Type>
 class LincedList;
 
@@ -6,10 +7,9 @@ template<typename Type>
 class LincedListItem
 {
 public:
-	Type& operator*()  const { return *m_item; }
-	Type* operator->() const { return m_item; }
-	LincedListItem<Type>* getNext() { return m_next; }
-	LincedListItem<Type>* getPrev() { return m_prev; }
+	Type* getContent() const { return m_item; }
+	LincedListItem<Type>* getNext() const { return m_next; }
+	LincedListItem<Type>* getPrev() const { return m_prev; }
 private:
 	LincedList<Type>* m_list;
 	LincedListItem<Type>* m_next;
@@ -34,8 +34,10 @@ public:
 		first = new LincedListItem<Type>{ nullptr, this, nullptr, last };
 		last->m_prev = first;
 	}
-	LincedListItem<Type>* getFirst() { return first->m_next; }
-	LincedListItem<Type>* getLast() { return last->m_prev; }
+	LincedListItem<Type>* getFirst() const { return first->m_next; }
+	LincedListItem<Type>* getLast() const { return last->m_prev; }
+	LincedListItem<Type>* getEnd() const { return last; }
+	LincedListItem<Type>* getBegin() const { return first; }
 
 	void pushBack(Type* item)
 	{
@@ -50,13 +52,15 @@ public:
 
 	void remove(LincedListItem<Type>* item)
 	{
-		if (item->m_next)
-			item->m_next->m_prev = item->m_prev;
-		if (item->m_prev)
-			item->m_prev->m_next = item->m_next;
-		if (item->m_item)
-			delete item->m_item;
-		delete item;
+		ASSERT(item->m_next && item->m_prev, "You can't remove begin or end of list")
+		if(!item->m_next && !item->m_prev )
+			if (item->m_next)
+				item->m_next->m_prev = item->m_prev;
+			if (item->m_prev)
+				item->m_prev->m_next = item->m_next;
+			if (item->m_item)
+				delete item->m_item;
+			delete item;
 	}
 private:
 	LincedListItem<Type>* first;

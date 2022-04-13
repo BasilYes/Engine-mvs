@@ -16,6 +16,6 @@ private:
 	std::vector<ARef<AShader>> m_shaders;
 	ARef<AModel> m_model;
 
-	void Draw(const mat4& view, const mat4& proj);
+	void Draw(const mat4& view);
 	friend class RManager;
 };
