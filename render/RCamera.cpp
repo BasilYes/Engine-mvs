@@ -1,6 +1,7 @@
 #include "RCamera.h"
+#include "RManager.h"
 
-void RCamera::initViewMatrix(mat4& mat)
+void RCamera::updateViewMatrix(const RManager* manager)
 {
     mat3 rotate;
     initRotateTransform(rotate, getRotation());
@@ -11,5 +12,7 @@ void RCamera::initViewMatrix(mat4& mat)
     initLookDirection(lookAtDerection, up, right, front);
     mat4 lookAtTranslation;
     initTranslationTransform(lookAtTranslation, -getLocation());
-    mat = lookAtDerection* lookAtTranslation;
+    mat4 perspectiveProjection;
+    initPersProjTransform(perspectiveProjection, 3.14f * 0.5f, manager->getWindowSize()[0], manager->getWindowSize()[1], 0.01f, 100.0f);
+    m_viewMatrix = perspectiveProjection * lookAtDerection * lookAtTranslation;
 }

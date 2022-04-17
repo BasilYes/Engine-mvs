@@ -1,6 +1,7 @@
 #pragma once
 #include "other/math/matrix.h"
-#include "other/LocatedObject.h"
+#include "level/LocatedObject.h"
+class RManager;
 class RCamera
 	: public LocatedObject
 {
@@ -9,5 +10,8 @@ public:
 		: LocatedObject(transform)
 	{}
 
-	void initViewMatrix(mat4& mat);
+	mat4 getViewMatrix() const { return m_viewMatrix; }
+	void updateViewMatrix(const RManager* manager);
+private:
+	mat4 m_viewMatrix;
 };

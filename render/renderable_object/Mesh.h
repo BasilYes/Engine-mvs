@@ -1,13 +1,15 @@
 #pragma once
 #include <vector>
 #include "asset/AManager.h"
-#include "other/LocatedObject.h"
+#include "level/LocatedObject.h"
 #include "other/math/matrix.h"
+#include "render/RObject.h"
 
 class RManager;
 
 class Mesh
 	: public LocatedObject
+	, public RObject
 {
 public:
 	Mesh(Transform transform, unsigned int modelKey, unsigned int shaderKey);
@@ -16,6 +18,6 @@ private:
 	std::vector<ARef<AShader>> m_shaders;
 	ARef<AModel> m_model;
 
-	void Draw(const mat4& view);
+	virtual void Draw(const RCamera* camera) const override;
 	friend class RManager;
 };

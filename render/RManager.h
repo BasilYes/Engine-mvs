@@ -3,6 +3,7 @@
 #include "other/LinkedList.h"
 struct GLFWwindow;
 class RCamera;
+class RObject;
 class Mesh;
 
 
@@ -12,9 +13,10 @@ public:
 	static void init();
 	static RManager* getRManager() { return m_rManager; }
 
-	bool drawFrame();
-	vec2 getWindowSize() { return m_windowSize; }
-	RCamera* getActiveCamera() { return m_activeCamera; }
+	bool drawFrame() const;
+	vec2 getWindowSize() const { return m_windowSize; }
+	RCamera* getActiveCamera() const { return m_activeCamera; }
+	void addMesh(Mesh* mesh);
 private:
 	static RManager* m_rManager;
 
@@ -22,7 +24,7 @@ private:
 	static vec2 m_windowSize;
 
 	RCamera* m_activeCamera;
-	LincedList<Mesh> m_meshList;
+	LincedList<RObject> m_drawList;
 
 
 	RManager();

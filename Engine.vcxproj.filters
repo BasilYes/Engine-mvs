@@ -51,6 +51,15 @@
     <ClCompile Include="asset\ARef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="level\Unit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="level\Component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="render\RObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="render\RManager.h">
@@ -65,7 +74,7 @@
     <ClInclude Include="render\RCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="other\LocatedObject.h">
+    <ClInclude Include="level\LocatedObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="asset\AManager.h">
@@ -87,6 +96,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="other\LinkedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render\RObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="level\Unit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="level\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

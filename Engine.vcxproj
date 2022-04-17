@@ -150,6 +150,7 @@
     <ClCompile Include="asset\assets\model\AMesh.cpp" />
     <ClCompile Include="asset\assets\model\AModel.cpp" />
     <ClCompile Include="asset\AManager.cpp" />
+    <ClCompile Include="level\Component.cpp" />
     <ClCompile Include="EngineMain.cpp" />
     <ClCompile Include="render\renderable_object\Mesh.cpp" />
     <ClCompile Include="other\debug.cpp" />
@@ -157,6 +158,8 @@
     <ClCompile Include="other\stb_image.cpp" />
     <ClCompile Include="render\RCamera.cpp" />
     <ClCompile Include="render\RManager.cpp" />
+    <ClCompile Include="level\Unit.cpp" />
+    <ClCompile Include="render\RObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="asset\ARef.h" />
@@ -164,13 +167,16 @@
     <ClInclude Include="asset\assets\model\AMesh.h" />
     <ClInclude Include="asset\assets\model\AModel.h" />
     <ClInclude Include="asset\AManager.h" />
+    <ClInclude Include="level\Component.h" />
     <ClInclude Include="other\LinkedList.h" />
     <ClInclude Include="render\renderable_object\Mesh.h" />
-    <ClInclude Include="other\LocatedObject.h" />
+    <ClInclude Include="level\LocatedObject.h" />
     <ClInclude Include="other\math\matrix.h" />
     <ClInclude Include="other\math\vector.h" />
     <ClInclude Include="render\RCamera.h" />
     <ClInclude Include="render\RManager.h" />
+    <ClInclude Include="render\RObject.h" />
+    <ClInclude Include="level\Unit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

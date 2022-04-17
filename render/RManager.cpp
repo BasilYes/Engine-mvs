@@ -69,6 +69,12 @@ void initGLFW()
 #endif
 }
 
+void RManager::addMesh(Mesh* mesh)
+{
+    m_rManager->m_drawList.pushBack(mesh);
+    mesh->RObject::m_selfRef = m_drawList.getLast();
+}
+
 void RManager::init()
 {
     ASSERT(!m_rManager, "RenderManager reinitialization")
@@ -91,11 +97,11 @@ void RManager::init()
     glEnable(GL_DEPTH_TEST);
 
     /////////////////////////////////////
-    m_rManager->m_meshList.pushBack(new Mesh{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}} , 0, 0 });
+    m_rManager->addMesh(new Mesh{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}} , 0, 0 });
     /////////////////////////////////////
 }
 
-bool RManager::drawFrame()
+bool RManager::drawFrame() const
 {
     processInput(m_window);
 
@@ -104,14 +110,11 @@ bool RManager::drawFrame()
 
 
 
-    mat4 proj, camera, view;
-    initPersProjTransform(proj, 3.14f * 0.5f, m_windowSize[0], m_windowSize[1], 0.01f, 100.0f);
-    m_activeCamera->initViewMatrix(camera);
-    view = proj * camera;
-    LincedListItem<Mesh>* item = m_meshList.getFirst();
-    while (item != m_meshList.getEnd())
+    m_activeCamera->updateViewMatrix(this);
+    LincedListItem<RObject>* item = m_drawList.getFirst();
+    while (item != m_drawList.getEnd())
     {
-        item->getContent()->Draw(view);
+        item->getContent()->Draw(m_activeCamera);
         item = item->getNext();
     }
 
