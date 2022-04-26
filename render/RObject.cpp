@@ -10,5 +10,5 @@ RObject::RObject()
 RObject::~RObject()
 {
 	if (m_selfRef)
-		LincedList<RObject>::remove(m_selfRef);
+		LincedList<const RObject>::remove(m_selfRef);
 }

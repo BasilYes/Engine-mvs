@@ -29,29 +29,32 @@ class LincedList
 public:
 	LincedList()
 	{
-		last = new LincedListItem<Type>{ nullptr, nullptr, nullptr };
-		first = new LincedListItem<Type>{ nullptr, nullptr, last };
-		last->m_prev = first;
+		begin = new LincedListItem<Type>{ nullptr, nullptr, nullptr };
 	}
-	LincedListItem<Type>* getFirst() const { return first->m_next; }
-	LincedListItem<Type>* getLast() const { return last->m_prev; }
-	LincedListItem<Type>* getEnd() const { return last; }
-	LincedListItem<Type>* getBegin() const { return first; }
+	LincedListItem<Type>* getFirst() const { return begin->m_next; }
+	LincedListItem<Type>* getBegin() const { return begin; }
 
-	void pushBack(Type* item)
+	static void pushBack(Type* item, LincedListItem<Type>* list)
 	{
-		last->m_prev = new LincedListItem<Type>{ item, last->m_prev, last };
-		last->m_prev->m_prev->m_next = last->m_prev;
+		list->m_prev = new LincedListItem<Type>{ item, list->m_prev, list };
+		if (list->m_prev->m_prev)
+			list->m_prev->m_prev->m_next = list->m_prev;
 	}
 	void pushFront(Type* item)
 	{
-		first->m_next = new LincedListItem<Type>{ item, first, first->m_next };
-		first->m_next->m_next->m_prev = first->m_next;
+		begin->m_next = new LincedListItem<Type>{ item, begin, begin->m_next };
+		if (begin->m_next->m_next)
+			begin->m_next->m_next->m_prev = begin->m_next;
 	}
-
+	static void pushFront(Type* item, LincedListItem<Type>* list)
+	{
+		list->m_next = new LincedListItem<Type>{ item, list, list->m_next };
+		if (list->m_next->m_next)
+			list->m_next->m_next->m_prev = list->m_next;
+	}
 	static void remove(LincedListItem<Type>* item)
 	{
-		ASSERT(item->m_next && item->m_prev, "You can't remove begin or end of list")
+		ASSERT(item->m_prev, "You can't remove begin of list")
 		if(!item->m_next && !item->m_prev )
 			if (item->m_next)
 				item->m_next->m_prev = item->m_prev;
@@ -61,15 +64,14 @@ public:
 	}
 	~LincedList()
 	{
-		LincedListItem<Type>* item = getFirst();
-		while (item)
+		LincedListItem<Type>* item = begin;
+		while (item->m_next)
 		{
+			item = item->m_next;
 			delete item->m_prev;
-			item = item->getNext();
 		}
-		delete last;
+		delete item;
 	}
 private:
-	LincedListItem<Type>* first;
-	LincedListItem<Type>* last;
+	LincedListItem<Type>* begin;
 };

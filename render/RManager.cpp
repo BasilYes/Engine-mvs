@@ -71,8 +71,8 @@ void initGLFW()
 
 void RManager::addMesh(Mesh* mesh)
 {
-    m_rManager->m_drawList.pushBack(mesh);
-    mesh->RObject::m_selfRef = m_drawList.getLast();
+    m_rManager->m_drawList.pushFront(mesh);
+    mesh->RObject::m_selfRef = m_drawList.getFirst();
 }
 
 void RManager::init()
@@ -111,10 +111,10 @@ bool RManager::drawFrame() const
 
 
     m_activeCamera->updateViewMatrix(this);
-    LincedListItem<RObject>* item = m_drawList.getFirst();
-    while (item != m_drawList.getEnd())
+    LincedListItem<const RObject>* item = m_drawList.getFirst();
+    while (item)
     {
-        item->getContent()->Draw(m_activeCamera);
+        item->getContent()->draw(m_activeCamera);
         item = item->getNext();
     }
 

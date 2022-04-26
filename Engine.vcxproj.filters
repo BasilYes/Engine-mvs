@@ -51,13 +51,16 @@
     <ClCompile Include="asset\ARef.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="level\Unit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="level\Component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="render\RObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\LocatedComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\Unit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,10 +104,16 @@
     <ClInclude Include="render\RObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="level\Unit.h">
+    <ClInclude Include="Level\LocatedComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="level\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="level\Component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\Unit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

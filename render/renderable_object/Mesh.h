@@ -8,7 +8,7 @@
 class RManager;
 
 class Mesh
-	: public LocatedObject
+	: public virtual LocatedObject
 	, public RObject
 {
 public:
@@ -18,6 +18,6 @@ private:
 	std::vector<ARef<AShader>> m_shaders;
 	ARef<AModel> m_model;
 
-	virtual void Draw(const RCamera* camera) const override;
+	virtual void draw(const RCamera* camera) const override;
 	friend class RManager;
 };

@@ -3,7 +3,7 @@
 #include "level/LocatedObject.h"
 class RManager;
 class RCamera
-	: public LocatedObject
+	: public virtual LocatedObject
 {
 public:
 	RCamera(Transform transform)

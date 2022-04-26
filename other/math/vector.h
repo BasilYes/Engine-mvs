@@ -149,12 +149,12 @@ struct vector
 	}
 
 
-	Type operator*(const vector<Type, size> r) const
+	vector<Type, size> operator*(const vector<Type, size> r) const
 	{
-		Type out = 0;
+		vector<Type, size> out{};
 		for (int i = 0; i < size; i++)
 		{
-			out += data[i] * r.data[i];
+			out[i] = data[i] * r.data[i];
 		}
 
 		return out;
@@ -165,6 +165,17 @@ struct vector
 		return data[a];
 	}
 };
+
+template <typename Type, int size>
+Type dot(const vector<Type, size>& l, const vector<Type, size>& r)
+{
+	Type out;
+
+	for (int i = 0; i < size; i++)
+		out += l.data[i] * r.data[i];
+
+	return out;
+}
 
 template <typename Type>
 vector<Type, 3> cross(const vector<Type, 3>& l, const vector<Type, 3>& r)

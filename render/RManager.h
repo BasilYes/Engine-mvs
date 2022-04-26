@@ -24,7 +24,7 @@ private:
 	static vec2 m_windowSize;
 
 	RCamera* m_activeCamera;
-	LincedList<RObject> m_drawList;
+	LincedList<const RObject> m_drawList;
 
 
 	RManager();

@@ -32,7 +32,7 @@ Mesh::Mesh(Transform transform, unsigned int modelKey, std::vector<unsigned int>
 	}
 }
 
-void Mesh::Draw(const RCamera* camera) const
+void Mesh::draw(const RCamera* camera) const
 {
 	mat4 view = camera->getViewMatrix();
 	mat4 scale, rotate, transl, model;
