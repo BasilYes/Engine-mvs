@@ -1,9 +1,11 @@
 #include "Level.h"
 #include "Unit.h"
+
 Level* Level::m_activeLevel;
-void Level::init()
+void Level::init(Level* lvl)
 {
-	m_activeLevel = new Level();
+	ASSERT(!m_activeLevel, "Can't Lvl reinit");
+	m_activeLevel = lvl;
 }
 
 void Level::tick()
@@ -16,9 +18,19 @@ void Level::tick()
 	}
 }
 
+void Level::attachObject(LocatedObject* object)
+{
+	m_objects.pushFront(object);
+}
+
+void Level::attachUnit(Unit* unit)
+{
+	m_units.pushFront(unit);
+	unit->m_Level = this;
+}
+
 Level::Level()
 {
-
 }
 
 Level::~Level()

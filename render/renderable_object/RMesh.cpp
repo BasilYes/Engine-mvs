@@ -1,4 +1,4 @@
-#include "Mesh.h"
+#include "RMesh.h"
 #include "asset/assets/model/AModel.h"
 #include "asset/AManager.h"
 #include "debug.h"
@@ -6,9 +6,8 @@
 #include "render/RManager.h"
 #include <utility>
 
-Mesh::Mesh(Transform transform, unsigned int modelKey, unsigned int shaderKey)
-	: LocatedObject(transform)
-	, RObject{}
+RMesh::RMesh(unsigned int modelKey, unsigned int shaderKey)
+	: RObject{}
 	, m_model{ std::move(AManager::getAManager().getModel(modelKey)) }
 {
 	auto& meshes = m_model->getMeshes();
@@ -17,9 +16,8 @@ Mesh::Mesh(Transform transform, unsigned int modelKey, unsigned int shaderKey)
 
 }
 
-Mesh::Mesh(Transform transform, unsigned int modelKey, std::vector<unsigned int> shadersKeys)
-	: LocatedObject(transform)
-	, RObject{}
+RMesh::RMesh(unsigned int modelKey, std::vector<unsigned int> shadersKeys)
+	: RObject{}
 	, m_model{ std::move(AManager::getAManager().getModel(modelKey)) }
 {
 	auto& meshes = m_model->getMeshes();
@@ -32,7 +30,7 @@ Mesh::Mesh(Transform transform, unsigned int modelKey, std::vector<unsigned int>
 	}
 }
 
-void Mesh::draw(const RCamera* camera) const
+void RMesh::draw(const RCamera* camera) const
 {
 	mat4 view = camera->getViewMatrix();
 	mat4 scale, rotate, transl, model;

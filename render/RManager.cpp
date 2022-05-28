@@ -3,8 +3,10 @@
 #include <debug.h>
 #include "RManager.h"
 #include "RCamera.h"
-#include "renderable_object/Mesh.h"
+#include "renderable_object/RMesh.h"
 #include "stb_image.h"
+
+#include "game/units/TestUnit.h"
 
 RManager* RManager::m_rManager = nullptr;
 GLFWwindow* RManager::m_window = nullptr;
@@ -18,22 +20,38 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        trans += vec3{ 0.0f,0.0f,0.01f };
+        trans = vec3{ 0.0f,0.0f,0.01f };
     else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        trans += vec3{ 0.0f,0.0f,-0.01f };
+        trans = vec3{ 0.0f,0.0f,-0.01f };
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        trans += vec3{ 0.01f,0.0f,0.0f };
+        trans = vec3{ 0.01f,0.0f,0.0f };
     else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        trans += vec3{ -0.01f,0.0f,0.0f };
+        trans = vec3{ -0.01f,0.0f,0.0f };
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-        trans += vec3{ 0.0f,0.01f,0.0f };
+        trans = vec3{ 0.0f,0.01f,0.0f };
     else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-        trans += vec3{ 0.0f,-0.01f,0.0f };
+        trans = vec3{ 0.0f,-0.01f,0.0f };
 
     mat3 rotat;
     initRotateTransform(rotat, camera->getRotation());
     trans = rotat * trans;
     camera->setLocation(camera->getLocation() + trans);
+
+
+    trans = vec3{};
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+        trans = vec3{ 0.0f,0.0f,0.01f };
+    else if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+        trans = vec3{ 0.0f,0.0f,-0.01f };
+    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+        trans = vec3{ 0.01f,0.0f,0.0f };
+    else if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+        trans = vec3{ -0.01f,0.0f,0.0f };
+    if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
+        trans = vec3{ 0.0f,0.01f,0.0f };
+    else if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
+        trans = vec3{ 0.0f,-0.01f,0.0f };
+    TestUnit::u->setUnitLocation(TestUnit::u->getLocation() + trans);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -69,7 +87,7 @@ void initGLFW()
 #endif
 }
 
-void RManager::addMesh(Mesh* mesh)
+void RManager::addMesh(RMesh* mesh)
 {
     m_rManager->m_drawList.pushFront(mesh);
     mesh->RObject::m_selfRef = m_drawList.getFirst();
@@ -97,7 +115,7 @@ void RManager::init()
     glEnable(GL_DEPTH_TEST);
 
     /////////////////////////////////////
-    m_rManager->addMesh(new Mesh{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}} , 0, 0 });
+    //m_rManager->addMesh(new Mesh{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}} , 0, 0 });
     /////////////////////////////////////
 }
 

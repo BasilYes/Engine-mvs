@@ -4,7 +4,6 @@
 class Unit;
 class LocatedComponent
 {
-	LocatedComponent(LocatedObject* object, LocatedObject* parent, LocatedComponent* right = nullptr, LocatedComponent* child = nullptr);
 	~LocatedComponent();
 
 	vec3 getRelativeScale() const { return m_relativeTransform.scale; }
@@ -16,6 +15,7 @@ class LocatedComponent
 	void setRelativeRotation(const vec3 rotation);
 	void setRelativeTransform(const Transform transform);
 private:
+	LocatedComponent(LocatedObject* object, Transform relativeTransform, LocatedObject* parent = nullptr, LocatedComponent* right = nullptr, LocatedComponent* child = nullptr);
 	void refreshTreeTransform(const mat3& rotate, const Transform& trans);
 	void refreshNodeTransform();
 

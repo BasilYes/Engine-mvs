@@ -145,6 +145,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game\game.cpp" />
+    <ClCompile Include="level\LocatedObject.cpp" />
     <ClCompile Include="Level\Unit.cpp" />
     <ClCompile Include="asset\ARef.cpp" />
     <ClCompile Include="asset\assets\AShader.cpp" />
@@ -154,13 +156,16 @@
     <ClCompile Include="EngineMain.cpp" />
     <ClCompile Include="Level\Level.cpp" />
     <ClCompile Include="Level\LocatedComponent.cpp" />
-    <ClCompile Include="render\renderable_object\Mesh.cpp" />
+    <ClCompile Include="game\level\MyLevel.cpp" />
+    <ClCompile Include="level\Mesh.cpp" />
+    <ClCompile Include="render\renderable_object\RMesh.cpp" />
     <ClCompile Include="other\debug.cpp" />
     <ClCompile Include="other\glad.c" />
     <ClCompile Include="other\stb_image.cpp" />
     <ClCompile Include="render\RCamera.cpp" />
     <ClCompile Include="render\RManager.cpp" />
     <ClCompile Include="render\RObject.cpp" />
+    <ClCompile Include="game\units\TestUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Level\Unit.h" />
@@ -172,14 +177,17 @@
     <ClInclude Include="level\Level.h" />
     <ClInclude Include="Level\LocatedComponent.h" />
     <ClInclude Include="level\Component.h" />
+    <ClInclude Include="game\level\MyLevel.h" />
+    <ClInclude Include="level\Mesh.h" />
     <ClInclude Include="other\LinkedList.h" />
-    <ClInclude Include="render\renderable_object\Mesh.h" />
+    <ClInclude Include="render\renderable_object\RMesh.h" />
     <ClInclude Include="level\LocatedObject.h" />
     <ClInclude Include="other\math\matrix.h" />
     <ClInclude Include="other\math\vector.h" />
     <ClInclude Include="render\RCamera.h" />
     <ClInclude Include="render\RManager.h" />
     <ClInclude Include="render\RObject.h" />
+    <ClInclude Include="game\units\TestUnit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -6,20 +6,12 @@ class Level
 {
 public:
 
-	static void init();
+	static void init(Level* lvl);
 	static Level* getActiveLevel() { return m_activeLevel; }
 	void tick();
 
-	template<typename Type, typename ...Args>
-	void createObject(Args... args)
-	{
-		m_objects.pushFront(new Type{ args... });
-	}
-	template<typename Type, typename ...Args>
-	void spawnActor(Args... args)
-	{
-		m_units.pushFront(new Type{ args... });
-	}
+	void attachObject(LocatedObject* object);
+	void attachUnit(Unit* unit);
 	Level();
 	~Level();
 private:

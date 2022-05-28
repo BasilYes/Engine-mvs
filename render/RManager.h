@@ -4,7 +4,7 @@
 struct GLFWwindow;
 class RCamera;
 class RObject;
-class Mesh;
+class RMesh;
 
 
 class RManager
@@ -16,7 +16,7 @@ public:
 	bool drawFrame() const;
 	vec2 getWindowSize() const { return m_windowSize; }
 	RCamera* getActiveCamera() const { return m_activeCamera; }
-	void addMesh(Mesh* mesh);
+	void addMesh(RMesh* mesh);
 private:
 	static RManager* m_rManager;
 
@@ -25,7 +25,6 @@ private:
 
 	RCamera* m_activeCamera;
 	LincedList<const RObject> m_drawList;
-
 
 	RManager();
 	~RManager();

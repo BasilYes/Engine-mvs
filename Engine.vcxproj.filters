@@ -42,7 +42,7 @@
     <ClCompile Include="asset\assets\model\AMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="render\renderable_object\Mesh.cpp">
+    <ClCompile Include="render\renderable_object\RMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="asset\assets\AShader.cpp">
@@ -61,6 +61,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Level\Unit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\level\MyLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\units\TestUnit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="level\LocatedObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="level\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,7 +104,7 @@
     <ClInclude Include="asset\assets\model\AMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="render\renderable_object\Mesh.h">
+    <ClInclude Include="render\renderable_object\RMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="asset\assets\AShader.h">
@@ -114,6 +129,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level\Unit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\level\MyLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\units\TestUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="level\Mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

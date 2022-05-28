@@ -2,6 +2,17 @@
 #include "LocatedComponent.h"
 #include "Component.h"
 
+Unit::Unit(Level* lvl)
+	: m_Level{ lvl }
+	, m_locatedComponentTree{ nullptr }
+{}
+//Unit::Unit(Transform transform, Level* lvl)
+//	: LocatedObject(transform)
+//	, m_Level{lvl}
+//	, m_locatedComponentTree{nullptr}
+//{
+//}
+
 Unit::~Unit()
 {
 	auto item = m_logicalComponents.getFirst();
@@ -12,28 +23,51 @@ Unit::~Unit()
 	}
 }
 
-void Unit::setActorScale(const vec3 scale)
+void Unit::updateTreeTransform()
+{
+	auto node = m_locatedComponentTree;
+	while (node)
+	{
+		m_locatedComponentTree->refreshNodeTransform();
+		node = node->m_right;
+	}
+}
+
+void Unit::attachLocatedComponent(LocatedObject *component, Transform relativeTransform)
+{
+	if (m_locatedComponentTree)
+	{
+		auto node = m_locatedComponentTree;
+		while (node->m_right)
+			node = node->m_right;
+		node->m_right = new LocatedComponent{ component, relativeTransform,  this };
+	}
+	else
+		m_locatedComponentTree = new LocatedComponent{ component, relativeTransform,  this};
+}
+
+void Unit::setUnitScale(const vec3 scale)
 {
 	setScale(scale);
-	m_locatedComponentTree->refreshNodeTransform();
+	updateTreeTransform();
 }
 
-void Unit::setActorLocation(const vec3 location)
+void Unit::setUnitLocation(const vec3 location)
 {
 	setLocation(location);
-	m_locatedComponentTree->refreshNodeTransform();
+	updateTreeTransform();
 }
 
-void Unit::setActorRotation(const vec3 rotation)
+void Unit::setUnitRotation(const vec3 rotation)
 {
 	setRotation(rotation);
-	m_locatedComponentTree->refreshNodeTransform();
+	updateTreeTransform();
 }
 
-void Unit::setActorTransform(const Transform transform)
+void Unit::setUnitTransform(const Transform transform)
 {
 	setTransform(transform);
-	m_locatedComponentTree->refreshNodeTransform();
+	updateTreeTransform();
 }
 
 void Unit::tick()
@@ -45,4 +79,3 @@ void Unit::tick()
 		item = item->getNext();
 	}
 }
-

@@ -1,21 +1,21 @@
-#include "render/RManager.h"
-#include "asset/AManager.h"
-#include "level/Level.h"
-
-
-#include <debug.h>
-int main()
-{
-	AManager::init();
-	RManager::init();
-	Level::init();
-	while (true)
-	{
-		Level::getActiveLevel()->tick();
-		if (!RManager::getRManager()->drawFrame())
-			return 0;
-	}
-}
+//#include "render/RManager.h"
+//#include "asset/AManager.h"
+//#include "level/Level.h"
+//
+//
+//#include <debug.h>
+//int main()
+//{
+//	AManager::init();
+//	RManager::init();
+//	Level::init();
+//	while (true)
+//	{
+//		Level::getActiveLevel()->tick();
+//		if (!RManager::getRManager()->drawFrame())
+//			return 0;
+//	}
+//}
 
 
 //#include "other/LinkedList.h"
