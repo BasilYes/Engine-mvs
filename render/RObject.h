@@ -7,8 +7,8 @@ class RObject
 public:
 	RObject();
 	virtual ~RObject();
-	virtual void draw(const RCamera* camera) const = 0;
 private:
+	virtual void draw(const RCamera* camera) const = 0;
 	LincedListItem<const RObject>* m_selfRef;
 	friend RManager;
 };

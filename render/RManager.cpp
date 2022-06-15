@@ -92,6 +92,11 @@ void RManager::addMesh(RMesh* mesh)
     m_rManager->m_drawList.pushFront(mesh);
     mesh->RObject::m_selfRef = m_drawList.getFirst();
 }
+void RManager::addRObject(RObject* mesh)
+{
+    m_rManager->m_drawList.pushFront(mesh);
+    mesh->RObject::m_selfRef = m_drawList.getFirst();
+}
 
 void RManager::init()
 {

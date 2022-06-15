@@ -1,5 +1,17 @@
+#include <glad/glad.h> 
+
+#include <stb_image.h>
+
 #include "AModel.h"
 #include "debug.h"
+
+AModel::~AModel()
+{
+    for(auto &texture: textures_loaded)
+    {
+        glDeleteTextures(1, &texture.id);
+    }
+}
 
 void AModel::loadModel(string const& path)
 {

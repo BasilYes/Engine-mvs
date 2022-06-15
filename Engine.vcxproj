@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="game\game.cpp" />
+    <ClCompile Include="game\render\LandscapeFragment.cpp" />
     <ClCompile Include="level\LocatedObject.cpp" />
     <ClCompile Include="Level\Unit.cpp" />
     <ClCompile Include="asset\ARef.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="game\units\TestUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game\render\LandscapeFragment.h" />
     <ClInclude Include="Level\Unit.h" />
     <ClInclude Include="asset\ARef.h" />
     <ClInclude Include="asset\assets\AShader.h" />

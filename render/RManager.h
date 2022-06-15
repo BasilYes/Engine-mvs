@@ -17,6 +17,7 @@ public:
 	vec2 getWindowSize() const { return m_windowSize; }
 	RCamera* getActiveCamera() const { return m_activeCamera; }
 	void addMesh(RMesh* mesh);
+	void addRObject(RObject* mesh);
 private:
 	static RManager* m_rManager;
 

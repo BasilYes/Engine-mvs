@@ -1,3 +1,4 @@
+#include <glad/glad.h>
 #include "AMesh.h"
 
 AMesh::AMesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
@@ -7,6 +8,13 @@ AMesh::AMesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, st
 	this->textures = textures;
 
 	setupMesh();
+}
+
+AMesh::~AMesh()
+{
+	glDeleteBuffers(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
 }
 
 void AMesh::Draw(AShader& shader) const

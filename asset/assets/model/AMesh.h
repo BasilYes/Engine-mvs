@@ -1,6 +1,4 @@
 #pragma once
-#include <glad/glad.h>
-
 #include "asset/assets/AShader.h"
 
 #include <string>
@@ -26,6 +24,7 @@ class AMesh
 {
 public:
     AMesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+    ~AMesh();
     void Draw(AShader& shader) const;
 private:
     std::vector<Vertex> vertices;

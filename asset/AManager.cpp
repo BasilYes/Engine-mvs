@@ -7,7 +7,7 @@ AManager* AManager::m_AManager = nullptr;
 
 
 constexpr unsigned int modelCount = 1;
-constexpr unsigned int shaderCount = 1;
+constexpr unsigned int shaderCount = 2;
 void AManager::init()
 {
 	ASSERT(!m_AManager, "AssetManager reinitialization")

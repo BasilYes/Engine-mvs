@@ -1,7 +1,4 @@
 #pragma once
-#include <glad/glad.h> 
-
-#include <stb_image.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -29,6 +26,7 @@ public:
     {
         loadModel("TetsAssets/models/" + to_string(key) + ".obj");
     }
+    ~AModel();
     const std::vector<AMesh>& getMeshes() { return m_meshes; }
 private:
     std::vector<Texture> textures_loaded;
