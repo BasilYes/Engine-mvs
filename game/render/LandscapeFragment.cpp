@@ -13,7 +13,7 @@ LandscapeFragment::LandscapeFragment(Transform transform, unsigned int sizeX, un
 
 float func(unsigned int x, unsigned int y)
 {
-	return (x + y) * 0.1f;
+	return (bool)y;
 }
 
 void LandscapeFragment::updateMesh()
@@ -36,6 +36,7 @@ void LandscapeFragment::updateMesh()
 			vertexId++;
 		}
 		m_vertices[vertexId].position = vec3{ (float)m_sizeX, (float)y, func(m_sizeX,y) };
+		vertexId++;
 	}
 	for (x = 0; x <= m_sizeX; x++)
 	{
@@ -45,7 +46,7 @@ void LandscapeFragment::updateMesh()
 
 	//Indices initiation and normal creating
 	vertexId = 0;
-	for (y = 0; y < m_sizeY; y++)
+	for (y = 1; y < m_sizeY; y++)
 	{
 		for (x = 0; x < m_sizeX; x++)
 		{
@@ -64,7 +65,7 @@ void LandscapeFragment::updateMesh()
 			vertexId++;
 
 			x++;
-			if (x < m_sizeX)
+			if (x >= m_sizeX)
 				break;
 
 			m_indices[vertexId * 3] = vertexId;
@@ -81,6 +82,41 @@ void LandscapeFragment::updateMesh()
 				m_vertices[vertexId + m_sizeX * 2].position - m_vertices[vertexId].position);
 			vertexId++;
 		}
+	}
+	unsigned int lastRaw = 2 * m_sizeX * m_sizeY;
+	for (x = 0; x < m_sizeX; x++)
+	{
+		m_indices[vertexId * 3] = vertexId;
+		m_indices[vertexId * 3 + 1] = lastRaw;
+		m_indices[vertexId * 3 + 2] = lastRaw + 1;
+		m_vertices[vertexId].normal = cross(m_vertices[lastRaw].position - m_vertices[vertexId].position,
+			m_vertices[lastRaw + 1].position - m_vertices[vertexId].position);
+		vertexId++; lastRaw++;
+
+		m_indices[vertexId * 3] = vertexId;
+		m_indices[vertexId * 3 + 1] = vertexId - 1;
+		m_indices[vertexId * 3 + 2] = lastRaw;
+		m_vertices[vertexId].normal = cross(m_vertices[vertexId - 1].position - m_vertices[vertexId].position,
+			m_vertices[lastRaw].position - m_vertices[vertexId].position);
+		vertexId++;
+
+		x++;
+		if (x >= m_sizeX)
+			break;
+
+		m_indices[vertexId * 3] = vertexId;
+		m_indices[vertexId * 3 + 1] = lastRaw;
+		m_indices[vertexId * 3 + 2] = vertexId + 1;
+		m_vertices[vertexId].normal = cross(m_vertices[lastRaw].position - m_vertices[vertexId].position,
+			m_vertices[vertexId + m_sizeX + 1].position - m_vertices[vertexId].position);
+		vertexId++; lastRaw++;
+
+		m_indices[vertexId * 3] = vertexId;
+		m_indices[vertexId * 3 + 1] = lastRaw - 1;
+		m_indices[vertexId * 3 + 2] = lastRaw;
+		m_vertices[vertexId].normal = cross(m_vertices[lastRaw - 1].position - m_vertices[vertexId].position,
+			m_vertices[lastRaw].position - m_vertices[vertexId].position);
+		vertexId++;
 	}
 }
 
@@ -116,6 +152,7 @@ void LandscapeFragment::draw(const RCamera* camera) const
 
 	model = view * transl * rotate * scale;
 
+	m_shader->use();
 	m_shader->setMat4("viewModel", model);
 
 	glBindVertexArray(VAO);

@@ -9,7 +9,7 @@ MyLevel::MyLevel()
 	TestUnit* unit = new TestUnit{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}}, (Level*)this };
 	//Mesh* mesh = new Mesh{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}} , 0, 0 };
 	//attachObject(mesh);
-	LandscapeFragment* l_frag = new LandscapeFragment(Transform{ vec3{},vec3{}, vec3{1.0f,1.0f,1.0f} }, 5, 5);
+	LandscapeFragment* l_frag = new LandscapeFragment(Transform{ vec3{},vec3{-1.57f, 0.0f, 0.0f}, vec3{1.0f,1.0f,1.0f} }, 6, 3);
 	attachUnit(unit);
 	attachObject(l_frag);
 	RManager::getRManager()->addRObject(l_frag);
