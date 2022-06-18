@@ -60,7 +60,7 @@ AMesh AModel::processMesh(aiMesh* mesh, const aiScene* scene)
 
         vector.data[0] = mesh->mNormals[i].x;
         vector.data[2] = mesh->mNormals[i].y;
-        vector.data[1] = -mesh->mNormals[i].z;
+        vector.data[1] = mesh->mNormals[i].z;
         vertex.Normal = vector;
 
         if (mesh->mTextureCoords[0])
