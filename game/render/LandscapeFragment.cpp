@@ -13,12 +13,12 @@ LandscapeFragment::LandscapeFragment(Transform transform, unsigned int sizeX, un
 
 float func(unsigned int x, unsigned int y)
 {
-	return (bool)y;
+	return (x+y)%2;
 }
 
 void LandscapeFragment::updateMesh()
 {
-	m_indices.resize(3 * 2 * m_sizeX * m_sizeY);
+	m_indices.resize(2 * 3 * m_sizeX * m_sizeY);
 	m_vertices.resize(m_sizeX * (2 * m_sizeY + 1) + 1);
 
 	//Initiation vertex position
@@ -27,20 +27,25 @@ void LandscapeFragment::updateMesh()
 	for (y = 0; y < m_sizeY; y++)
 	{
 		m_vertices[vertexId].position = vec3{ 0.0f, (float)y, func(0,y) };
+		m_vertices[vertexId].normal = vec3{ 0.0f, 0.0f, 1.0f };
 		vertexId++;
 		for (x = 1; x < m_sizeX; x++)
 		{
 			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) };
+			m_vertices[vertexId].normal = vec3{ 1.0f, 0.0f, 0.0f };
 			vertexId++;
 			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) };
+			m_vertices[vertexId].normal = vec3{ 1.0f, 0.0f, 0.0f };
 			vertexId++;
 		}
 		m_vertices[vertexId].position = vec3{ (float)m_sizeX, (float)y, func(m_sizeX,y) };
+		m_vertices[vertexId].normal = vec3{ 0.0f, 0.0f, 1.0f };
 		vertexId++;
 	}
 	for (x = 0; x <= m_sizeX; x++)
 	{
 		m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) };
+		m_vertices[vertexId].normal = vec3{ 0.0f, 1.0f, 0.0f };
 		vertexId++;
 	}
 
@@ -50,73 +55,83 @@ void LandscapeFragment::updateMesh()
 	{
 		for (x = 0; x < m_sizeX; x++)
 		{
-			m_indices[vertexId * 3] = vertexId;
-			m_indices[vertexId * 3 + 1] = vertexId + m_sizeX * 2;
-			m_indices[vertexId * 3 + 2] = vertexId + m_sizeX * 2 + 1;
-			m_vertices[vertexId].normal = cross(m_vertices[vertexId + m_sizeX * 2].position - m_vertices[vertexId].position,
-				m_vertices[vertexId + m_sizeX * 2 + 1].position - m_vertices[vertexId].position);
-			vertexId++;
+			if ((y + x) % 2)
+			{
+				m_indices[vertexId * 3] = vertexId + m_sizeX * 2;
+				m_indices[vertexId * 3 + 1] = vertexId + m_sizeX * 2 + 1;
+				m_indices[vertexId * 3 + 2] = vertexId;
+				m_vertices[vertexId].normal = cross(m_vertices[vertexId + m_sizeX * 2 + 1].position - m_vertices[vertexId].position,
+					m_vertices[vertexId + m_sizeX * 2].position - m_vertices[vertexId].position);
+					//m_vertices[vertexId].normal = vec3{ 0.5, 1.0, 0.3 };
+				vertexId++;
 
-			m_indices[vertexId * 3] = vertexId;
-			m_indices[vertexId * 3 + 1] = vertexId - 1;
-			m_indices[vertexId * 3 + 2] = vertexId + m_sizeX * 2;
-			m_vertices[vertexId].normal = cross(m_vertices[vertexId - 1].position - m_vertices[vertexId].position,
-				m_vertices[vertexId + m_sizeX * 2].position - m_vertices[vertexId].position);
-			vertexId++;
+				m_indices[vertexId * 3] = vertexId - 1;
+				m_indices[vertexId * 3 + 1] = vertexId + m_sizeX * 2;
+				m_indices[vertexId * 3 + 2] = vertexId;
+				m_vertices[vertexId].normal = cross(m_vertices[vertexId + m_sizeX * 2].position - m_vertices[vertexId].position,
+					m_vertices[vertexId - 1].position - m_vertices[vertexId].position);
+					//m_vertices[vertexId].normal = vec3{ 0.5, 1.0, 0.3 };
+				vertexId++;
+			}
+			else
+			{
+				m_indices[vertexId * 3] = vertexId + 1;
+				m_indices[vertexId * 3 + 1] = vertexId + m_sizeX * 2;
+				m_indices[vertexId * 3 + 2] = vertexId;
+				m_vertices[vertexId].normal = cross(m_vertices[vertexId + 1].position - m_vertices[vertexId].position,
+					m_vertices[vertexId + m_sizeX * 2].position - m_vertices[vertexId].position);
+					//m_vertices[vertexId].normal = vec3{ 0.5, 1.0, 0.3 };
+				vertexId++;
 
-			x++;
-			if (x >= m_sizeX)
-				break;
-
-			m_indices[vertexId * 3] = vertexId;
-			m_indices[vertexId * 3 + 1] = vertexId + m_sizeX * 2;
-			m_indices[vertexId * 3 + 2] = vertexId + 1;
-			m_vertices[vertexId].normal = cross(m_vertices[vertexId + m_sizeX * 2].position - m_vertices[vertexId].position,
-				m_vertices[vertexId + m_sizeX + 1].position - m_vertices[vertexId].position);
-			vertexId++;
-
-			m_indices[vertexId * 3] = vertexId;
-			m_indices[vertexId * 3 + 1] = vertexId + m_sizeX * 2 - 1;
-			m_indices[vertexId * 3 + 2] = vertexId + m_sizeX * 2;
-			m_vertices[vertexId].normal = cross(m_vertices[vertexId + m_sizeX * 2 - 1].position - m_vertices[vertexId].position,
-				m_vertices[vertexId + m_sizeX * 2].position - m_vertices[vertexId].position);
-			vertexId++;
+				m_indices[vertexId * 3] = vertexId + m_sizeX * 2;
+				m_indices[vertexId * 3 + 1] = vertexId + m_sizeX * 2 - 1;
+				m_indices[vertexId * 3 + 2] = vertexId;
+				m_vertices[vertexId].normal = cross(m_vertices[vertexId + m_sizeX * 2].position - m_vertices[vertexId].position,
+					m_vertices[vertexId + m_sizeX * 2 - 1].position - m_vertices[vertexId].position);
+					//m_vertices[vertexId].normal = vec3{ 0.5, 1.0, 0.3 };
+				vertexId++;
+			}
 		}
 	}
 	unsigned int lastRaw = 2 * m_sizeX * m_sizeY;
 	for (x = 0; x < m_sizeX; x++)
 	{
-		m_indices[vertexId * 3] = vertexId;
-		m_indices[vertexId * 3 + 1] = lastRaw;
-		m_indices[vertexId * 3 + 2] = lastRaw + 1;
-		m_vertices[vertexId].normal = cross(m_vertices[lastRaw].position - m_vertices[vertexId].position,
-			m_vertices[lastRaw + 1].position - m_vertices[vertexId].position);
-		vertexId++; lastRaw++;
+		if ((y + x) % 2)
+		{
+			m_indices[vertexId * 3] = lastRaw;
+			m_indices[vertexId * 3 + 1] = lastRaw + 1;
+			m_indices[vertexId * 3 + 2] = vertexId;
+			m_vertices[vertexId].normal = cross(m_vertices[lastRaw + 1].position - m_vertices[vertexId].position,
+				m_vertices[lastRaw].position - m_vertices[vertexId].position);
+				//m_vertices[vertexId].normal = vec3{ 0, 0, 0 };
+			vertexId++; lastRaw++;
 
-		m_indices[vertexId * 3] = vertexId;
-		m_indices[vertexId * 3 + 1] = vertexId - 1;
-		m_indices[vertexId * 3 + 2] = lastRaw;
-		m_vertices[vertexId].normal = cross(m_vertices[vertexId - 1].position - m_vertices[vertexId].position,
-			m_vertices[lastRaw].position - m_vertices[vertexId].position);
-		vertexId++;
+			m_indices[vertexId * 3] = vertexId - 1;
+			m_indices[vertexId * 3 + 1] = lastRaw;
+			m_indices[vertexId * 3 + 2] = vertexId;
+			m_vertices[vertexId].normal = cross(m_vertices[lastRaw].position - m_vertices[vertexId].position,
+				m_vertices[vertexId - 1].position - m_vertices[vertexId].position);
+				//m_vertices[vertexId].normal = vec3{ 0, 0, 0 };
+			vertexId++;
+		}
+		else
+		{
+			m_indices[vertexId * 3] = lastRaw;
+			m_indices[vertexId * 3 + 1] = vertexId + 1;
+			m_indices[vertexId * 3 + 2] = vertexId;
+			m_vertices[vertexId].normal = cross(m_vertices[vertexId + 1].position - m_vertices[vertexId].position,
+				m_vertices[lastRaw].position - m_vertices[vertexId].position);
+				//m_vertices[vertexId].normal = vec3{ 0, 0, 0 };
+			vertexId++; lastRaw++;
 
-		x++;
-		if (x >= m_sizeX)
-			break;
-
-		m_indices[vertexId * 3] = vertexId;
-		m_indices[vertexId * 3 + 1] = lastRaw;
-		m_indices[vertexId * 3 + 2] = vertexId + 1;
-		m_vertices[vertexId].normal = cross(m_vertices[lastRaw].position - m_vertices[vertexId].position,
-			m_vertices[vertexId + m_sizeX + 1].position - m_vertices[vertexId].position);
-		vertexId++; lastRaw++;
-
-		m_indices[vertexId * 3] = vertexId;
-		m_indices[vertexId * 3 + 1] = lastRaw - 1;
-		m_indices[vertexId * 3 + 2] = lastRaw;
-		m_vertices[vertexId].normal = cross(m_vertices[lastRaw - 1].position - m_vertices[vertexId].position,
-			m_vertices[lastRaw].position - m_vertices[vertexId].position);
-		vertexId++;
+			m_indices[vertexId * 3] = lastRaw - 1;
+			m_indices[vertexId * 3 + 1] = lastRaw;
+			m_indices[vertexId * 3 + 2] = vertexId;
+			m_vertices[vertexId].normal = cross(m_vertices[lastRaw].position - m_vertices[vertexId].position,
+				m_vertices[lastRaw - 1].position - m_vertices[vertexId].position);
+				//m_vertices[vertexId].normal = vec3{ 0, 0, 0 };
+			vertexId++;
+		}
 	}
 }
 

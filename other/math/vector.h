@@ -12,6 +12,18 @@ struct vector
 		: data{0}
 	{};
 
+	//template<typename ...Args>
+	//vector(Args... args)
+	//	:data{args}
+	//{}
+
+	//template<typename ...Args>
+	//vector<Type, size>& operator=(Args... args)
+	//{
+	//	data = { args };
+	//	return *this;
+	//}
+	
 	vector(const std::initializer_list<Type>& list)
 	{
 		auto a = list.begin();
@@ -192,4 +204,13 @@ vector<Type, 3> cross(const vector<Type, 3>& l, const vector<Type, 3>& r)
 using vec4 = vector<float, 4>;
 using vec3 = vector<float, 3>;
 using vec2 = vector<float, 2>;
+using uvec4 = vector<unsigned int, 4>;
+using uvec3 = vector<unsigned int, 3>;
+using uvec2 = vector<unsigned int, 2>;
+using ivec4 = vector<int, 4>;
+using ivec3 = vector<int, 3>;
+using ivec2 = vector<int, 2>;
+using dvec4 = vector<double, 4>;
+using dvec3 = vector<double, 3>;
+using dvec2 = vector<double, 2>;
 #endif

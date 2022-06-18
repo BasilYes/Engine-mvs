@@ -6,12 +6,12 @@ TestUnit* TestUnit::u;
 TestUnit::TestUnit(Transform transform, Level* lvl)
 	: Unit(lvl)
 	, LocatedObject{transform}
-	, RMesh{ 0, 0 }
+	, RMesh{ 1, 1 }
 {
 	u = this;
-	Mesh* mesh = new Mesh{ Transform{}, 0, 1 };
-	attachLocatedComponent(mesh, Transform{ Transform{vec3{4.0f, 0.0f,0.0f},vec3{}, vec3{1.0f,1.0f,1.0f}} });
-	RManager::getRManager()->addMesh(mesh);
+	//Mesh* mesh = new Mesh{ Transform{}, 0, 1 };
+	//attachLocatedComponent(mesh, Transform{ Transform{vec3{4.0f, 0.0f,0.0f},vec3{}, vec3{1.0f,1.0f,1.0f}} });
+	//RManager::getRManager()->addMesh(mesh);
 	updateTreeTransform();
 }
 

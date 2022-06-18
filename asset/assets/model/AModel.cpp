@@ -16,7 +16,7 @@ AModel::~AModel()
 void AModel::loadModel(string const& path)
 {
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate /*| aiProcess_FlipUVs */| aiProcess_CalcTangentSpace);
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // если НЕ 0
     {
@@ -54,13 +54,13 @@ AMesh AModel::processMesh(aiMesh* mesh, const aiScene* scene)
         vec3 vector;
 
         vector.data[0] = mesh->mVertices[i].x;
-        vector.data[1] = mesh->mVertices[i].y;
-        vector.data[2] = mesh->mVertices[i].z;
+        vector.data[2] = mesh->mVertices[i].y;
+        vector.data[1] = mesh->mVertices[i].z;
         vertex.Position = vector;
 
         vector.data[0] = mesh->mNormals[i].x;
-        vector.data[1] = mesh->mNormals[i].y;
-        vector.data[2] = mesh->mNormals[i].z;
+        vector.data[2] = mesh->mNormals[i].y;
+        vector.data[1] = -mesh->mNormals[i].z;
         vertex.Normal = vector;
 
         if (mesh->mTextureCoords[0])
@@ -75,13 +75,13 @@ AMesh AModel::processMesh(aiMesh* mesh, const aiScene* scene)
             vertex.TexCoords = vec2{ 0.0f, 0.0f };
 
         vector.data[0] = mesh->mTangents[i].x;
-        vector.data[1] = mesh->mTangents[i].y;
-        vector.data[2] = mesh->mTangents[i].z;
+        vector.data[2] = mesh->mTangents[i].y;
+        vector.data[1] = mesh->mTangents[i].z;
         vertex.Tangent = vector;
 
         vector.data[0] = mesh->mBitangents[i].x;
-        vector.data[1] = mesh->mBitangents[i].y;
-        vector.data[2] = mesh->mBitangents[i].z;
+        vector.data[2] = mesh->mBitangents[i].y;
+        vector.data[1] = mesh->mBitangents[i].z;
         vertex.Bitangent = vector;
         vertices.push_back(vertex);
     }

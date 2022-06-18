@@ -20,37 +20,46 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        trans = vec3{ 0.0f,0.0f,0.01f };
-    else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        trans = vec3{ 0.0f,0.0f,-0.01f };
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        trans = vec3{ 0.01f,0.0f,0.0f };
-    else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        trans = vec3{ -0.01f,0.0f,0.0f };
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
         trans = vec3{ 0.0f,0.01f,0.0f };
-    else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+    else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
         trans = vec3{ 0.0f,-0.01f,0.0f };
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        trans = vec3{ -0.01f,0.0f,0.0f };
+    else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        trans = vec3{ 0.01f,0.0f,0.0f };
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        trans = vec3{ 0.0f,0.0f,0.01f };
+    else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        trans = vec3{ 0.0f,0.0f,-0.01f };
 
     mat3 rotat;
     initRotateTransform(rotat, camera->getRotation());
     trans = rotat * trans;
-    camera->setLocation(camera->getLocation() + trans);
+    camera->setLocation(camera->getLocation() + trans*1.0f);
 
 
+    //trans = vec3{};
+    //if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+    //    trans = vec3{ 0.0f,0.0f,0.01f };
+    //else if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+    //    trans = vec3{ 0.0f,0.0f,-0.01f };
+    //if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+    //    trans = vec3{ 0.01f,0.0f,0.0f };
+    //else if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+    //    trans = vec3{ -0.01f,0.0f,0.0f };
+    //if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
+    //    trans = vec3{ 0.0f,0.01f,0.0f };
+    //else if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
+    //    trans = vec3{ 0.0f,-0.01f,0.0f };    trans = vec3{};
     trans = vec3{};
-    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
         trans = vec3{ 0.0f,0.0f,0.01f };
-    else if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
-        trans = vec3{ 0.0f,0.0f,-0.01f };
-    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
         trans = vec3{ 0.01f,0.0f,0.0f };
-    else if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
-        trans = vec3{ -0.01f,0.0f,0.0f };
-    if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
         trans = vec3{ 0.0f,0.01f,0.0f };
-    else if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
-        trans = vec3{ 0.0f,-0.01f,0.0f };
+    if (glfwGetKey(window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS)
+        trans = -trans;
     TestUnit::u->setUnitLocation(TestUnit::u->getLocation() + trans);
 }
 
@@ -67,7 +76,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     lastY = ypos;
 
     RCamera* camera = RManager::getRManager()->getActiveCamera();
-    camera->setRotation(camera->getRotation() + vec3{ -yoffset * 0.01f, xoffset * 0.01f, 0.0f });
+    camera->setRotation(camera->getRotation() + vec3{ yoffset * 0.01f, 0.0f, -xoffset * 0.01f});
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -118,10 +127,6 @@ void RManager::init()
     stbi_set_flip_vertically_on_load(true);
 
     glEnable(GL_DEPTH_TEST);
-
-    /////////////////////////////////////
-    //m_rManager->addMesh(new Mesh{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}} , 0, 0 });
-    /////////////////////////////////////
 }
 
 bool RManager::drawFrame() const
