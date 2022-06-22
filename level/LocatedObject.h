@@ -1,6 +1,6 @@
 #pragma once
 #include "other/math/vector.h"
-class Level;
+class LevelInstance;
 struct Transform
 {
 	vec3 location;
@@ -11,7 +11,7 @@ struct Transform
 class LocatedObject
 {
 public:
-	LocatedObject(Transform transform, Level* lvl);
+	LocatedObject(Transform transform, LevelInstance* lvl);
 	vec3 getScale() const { return m_transform.scale; }
 	vec3 getLocation() const { return m_transform.location; }
 	vec3 getRotation() const { return m_transform.rotation; }

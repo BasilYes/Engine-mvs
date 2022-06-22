@@ -2,16 +2,18 @@
 #include "Component.h"
 #include "LocatedObject.h"
 #include "other/LinkedList.h"
+
 class Component;
 class LocatedComponent;
 class Level;
+class LevelInstance;
 
 class Unit
 	: public Component
 	, public virtual LocatedObject
 {
 public:
-	Unit(Level* lvl);
+	Unit(LevelInstance* lvl);
 	//Unit(Transform transform, Level* lvl);
 	virtual ~Unit();
 
@@ -35,6 +37,7 @@ private:
 
 	LocatedComponent *m_locatedComponentTree;
 	LincedList<Component> m_logicalComponents;
-	Level *m_Level;
+	LevelInstance *m_levelInstance;
 	friend class Level;
+	friend class LevelInstance;
 };

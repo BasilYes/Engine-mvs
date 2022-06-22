@@ -8,7 +8,7 @@
 
 RManager* RManager::m_rManager = nullptr;
 GLFWwindow* RManager::m_window = nullptr;
-vec2 RManager::m_windowSize{ 1000, 1000 };
+vec2 RManager::m_windowSize{ 1600, 900 };
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -65,7 +65,7 @@ void RManager::init()
 
 bool RManager::drawFrame() const
 {
-    glClearColor(241.0f/256.0f, 26.0f/256.0f, 128.0f/256.0f, 1.0f);
+    glClearColor(224.0f/256.0f, 255.0f/256.0f, 255.0f/256.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 

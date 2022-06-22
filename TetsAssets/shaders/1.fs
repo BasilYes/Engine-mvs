@@ -13,7 +13,7 @@ void main()
 
     // diffuse
     vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(-vec3(-0.5, -1.0, -0.3));
+    vec3 lightDir = normalize(-vec3(0.5, 1.0, -0.3));
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = vec3(1.0) * diff * dif;
 

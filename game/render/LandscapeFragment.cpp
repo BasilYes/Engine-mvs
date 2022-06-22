@@ -14,8 +14,8 @@ LandscapeFragment::LandscapeFragment(Transform transform, unsigned int sizeX, un
 
 float func(unsigned int x, unsigned int y)
 {
-	static SuperPerlinNoise Noise(32, 32, 4, 4, 128, 5, 1);
-	return (int)(Noise.getPoint(x,y)*100.0f)/2.0f;
+	static SuperPerlinNoise Noise(32, 32, 4, 4, 512, 8, 1);
+	return (int)(Noise.getPoint(x % 2048, y % 2048) * 200.0f) / 2.0f;
 }
 
 void LandscapeFragment::updateMesh()
@@ -28,21 +28,21 @@ void LandscapeFragment::updateMesh()
 	unsigned int y = 0, x = 0;
 	for (x = 0; x < m_sizeX; x++)
 	{
-		m_vertices[vertexId].position = vec3{ (float)x, 0.0f, func(x,0) };
+		m_vertices[vertexId].position = vec3{ (float)x, 0.0f, func(x + m_offsetX,m_offsetY) };
 		vertexId++;
 		for (y = 1; y < m_sizeY; y++)
 		{
-			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) };
+			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offsetX,y + m_offsetY) };
 			vertexId++;
-			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) };
+			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offsetX,y + m_offsetY) };
 			vertexId++;
 		}
-		m_vertices[vertexId].position = vec3{ (float)x, (float)m_sizeY, func(x, m_sizeY) };
+		m_vertices[vertexId].position = vec3{ (float)x, (float)m_sizeY, func(x + m_offsetX, m_sizeY + m_offsetY) };
 		vertexId++;
 	}
 	for (y = 0; y <= m_sizeY; y++)
 	{
-		m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) };
+		m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offsetX,y + m_offsetY) };
 		vertexId++;
 	}
 

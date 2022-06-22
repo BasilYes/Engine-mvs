@@ -164,6 +164,7 @@
     <ClCompile Include="Level\LocatedComponent.cpp" />
     <ClCompile Include="game\level\MyLevel.cpp" />
     <ClCompile Include="level\Mesh.cpp" />
+    <ClCompile Include="game\level\MyLevelInstance.cpp" />
     <ClCompile Include="render\renderable_object\RMesh.cpp" />
     <ClCompile Include="other\debug.cpp" />
     <ClCompile Include="other\glad.c" />
@@ -173,6 +174,7 @@
     <ClCompile Include="render\RObject.cpp" />
     <ClCompile Include="game\units\TestUnit.cpp" />
     <ClCompile Include="game\units\SpectatorCamera.cpp" />
+    <ClCompile Include="render\RInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="event\EEvent.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="level\Component.h" />
     <ClInclude Include="game\level\MyLevel.h" />
     <ClInclude Include="level\Mesh.h" />
+    <ClInclude Include="game\level\MyLevelInstance.h" />
     <ClInclude Include="other\debug.h" />
     <ClInclude Include="other\LinkedList.h" />
     <ClInclude Include="render\renderable_object\RMesh.h" />
@@ -205,6 +208,7 @@
     <ClInclude Include="render\RObject.h" />
     <ClInclude Include="game\units\TestUnit.h" />
     <ClInclude Include="game\units\SpectatorCamera.h" />
+    <ClInclude Include="render\RInstance.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="game\render\PerlinNoise\math.inl" />

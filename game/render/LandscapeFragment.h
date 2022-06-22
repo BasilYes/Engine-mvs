@@ -21,6 +21,8 @@ public:
 private:
 	unsigned int m_sizeX;
 	unsigned int m_sizeY;
+	unsigned int m_offsetX;
+	unsigned int m_offsetY;
 	std::vector<vertex> m_vertices;
 	std::vector<unsigned int> m_indices;
 	ARef<AShader> m_shader;

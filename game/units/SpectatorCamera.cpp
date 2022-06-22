@@ -1,7 +1,7 @@
 #include "SpectatorCamera.h"
 #include "other/math/matrix.h"
 
-SpectatorCamera::SpectatorCamera(Transform transform, Level* lvl)
+SpectatorCamera::SpectatorCamera(Transform transform, LevelInstance* lvl)
 	: Unit(lvl)
 	, LocatedObject{ transform }
 	, RCamera{}

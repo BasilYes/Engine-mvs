@@ -7,10 +7,7 @@ class SpectatorCamera
 	, public Unit
 {
 public:
-	SpectatorCamera(Transform transform, Level* lvl);
-	void moveForward(float axis);
-	void moveRight(float axis);
-	void moveUp(float axis);
+	SpectatorCamera(Transform transform, LevelInstance* lvl);
 private:
 	void remove() override;
 	class MoveForaward : public EEvent<float>

@@ -2,8 +2,8 @@
 #include "LocatedComponent.h"
 #include "Component.h"
 
-Unit::Unit(Level* lvl)
-	: m_Level{ lvl }
+Unit::Unit(LevelInstance* lvl)
+	: m_levelInstance{ lvl }
 	, m_locatedComponentTree{ nullptr }
 {}
 //Unit::Unit(Transform transform, Level* lvl)

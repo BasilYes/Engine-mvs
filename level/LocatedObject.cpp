@@ -1,7 +1,7 @@
 #include "LocatedComponent.h"
-#include "Level.h"
+#include "LevelInstance.h"
 
-LocatedObject::LocatedObject(Transform transform, Level* lvl)
+LocatedObject::LocatedObject(Transform transform, LevelInstance* lvl)
 	: m_transform{ transform }
 {
 	lvl->attachObject(this);

@@ -3,7 +3,7 @@
 #include "level/LocatedComponent.h"
 #include "render/RManager.h"
 TestUnit* TestUnit::u;
-TestUnit::TestUnit(Transform transform, Level* lvl)
+TestUnit::TestUnit(Transform transform, LevelInstance* lvl)
 	: Unit(lvl)
 	, LocatedObject{transform}
 	, RMesh{ 2, 1 }

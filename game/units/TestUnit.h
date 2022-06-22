@@ -7,7 +7,7 @@ class TestUnit
 {
 public:
 	static TestUnit* u;
-	TestUnit(Transform transform, Level* lvl);
+	TestUnit(Transform transform, LevelInstance* lvl);
 private:
 	void draw(const RCamera* camera) const override;
 	void remove() override;

@@ -9,15 +9,14 @@ public:
 
 	static void init(Level* lvl);
 	static Level* getActiveLevel() { return m_activeLevel; }
+	void initInstance();
+	virtual LevelInstance* createLevelInstance(vec3 offset);
+	LevelInstance* getActiveInstance() { return m_activeInstance; }
 	void tick();
 
-	void attachObject(LocatedObject* object);
-	void attachUnit(Unit* unit);
 	Level();
-	~Level();
+	virtual ~Level();
 private:
 	static Level* m_activeLevel;
 	LevelInstance* m_activeInstance;
-	LincedList<LocatedObject> m_objects;
-	LincedList<Unit> m_units;
 };

@@ -5,4 +5,5 @@ class MyLevel
 {
 public:
 	MyLevel();
+	LevelInstance* createLevelInstance(vec3 offset) override;
 };
