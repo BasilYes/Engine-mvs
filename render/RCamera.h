@@ -9,6 +9,9 @@ public:
 	RCamera(Transform transform)
 		: LocatedObject(transform)
 	{}
+	RCamera()
+		: LocatedObject(Transform{})
+	{}
 
 	mat4 getViewMatrix() const { return m_viewMatrix; }
 	void updateViewMatrix(const RManager* manager);

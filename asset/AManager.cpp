@@ -1,12 +1,12 @@
 #include "AManager.h"
 #include "assets/AShader.h"
 #include "assets/model/AModel.h"
-#include "debug.h"
+#include <debug.h>
 
 AManager* AManager::m_AManager = nullptr;
 
 
-constexpr unsigned int modelCount = 2;
+constexpr unsigned int modelCount = 3;
 constexpr unsigned int shaderCount = 2;
 void AManager::init()
 {

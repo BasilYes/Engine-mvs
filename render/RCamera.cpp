@@ -13,6 +13,6 @@ void RCamera::updateViewMatrix(const RManager* manager)
     mat4 lookAtTranslation;
     initTranslationTransform(lookAtTranslation, -getLocation());
     mat4 perspectiveProjection;
-    initPersProjTransform(perspectiveProjection, 3.14f * 0.5f, manager->getWindowSize()[0], manager->getWindowSize()[1], 0.01f, 100.0f);
+    initPersProjTransform(perspectiveProjection, 3.14f * 0.5f, manager->getWindowSize()[0], manager->getWindowSize()[1], 0.01f, 1000.0f);
     m_viewMatrix = perspectiveProjection * lookAtDerection * lookAtTranslation;
 }

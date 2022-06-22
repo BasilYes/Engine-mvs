@@ -6,81 +6,13 @@
 #include "renderable_object/RMesh.h"
 #include "stb_image.h"
 
-#include "game/units/TestUnit.h"
-
 RManager* RManager::m_rManager = nullptr;
 GLFWwindow* RManager::m_window = nullptr;
-vec2 RManager::m_windowSize{ 800, 600 };
-
-void processInput(GLFWwindow* window)
-{
-    RCamera* camera = RManager::getRManager()->getActiveCamera();
-    vec3 trans = vec3{};
-
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        trans = vec3{ 0.0f,0.01f,0.0f };
-    else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        trans = vec3{ 0.0f,-0.01f,0.0f };
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        trans = vec3{ -0.01f,0.0f,0.0f };
-    else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        trans = vec3{ 0.01f,0.0f,0.0f };
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-        trans = vec3{ 0.0f,0.0f,0.01f };
-    else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-        trans = vec3{ 0.0f,0.0f,-0.01f };
-
-    mat3 rotat;
-    initRotateTransform(rotat, camera->getRotation());
-    trans = rotat * trans;
-    camera->setLocation(camera->getLocation() + trans*1.0f);
-
-
-    //trans = vec3{};
-    //if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
-    //    trans = vec3{ 0.0f,0.0f,0.01f };
-    //else if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
-    //    trans = vec3{ 0.0f,0.0f,-0.01f };
-    //if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
-    //    trans = vec3{ 0.01f,0.0f,0.0f };
-    //else if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
-    //    trans = vec3{ -0.01f,0.0f,0.0f };
-    //if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
-    //    trans = vec3{ 0.0f,0.01f,0.0f };
-    //else if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
-    //    trans = vec3{ 0.0f,-0.01f,0.0f };    trans = vec3{};
-    trans = vec3{};
-    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
-        trans = vec3{ 0.0f,0.0f,0.01f };
-    if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
-        trans = vec3{ 0.01f,0.0f,0.0f };
-    if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
-        trans = vec3{ 0.0f,0.01f,0.0f };
-    if (glfwGetKey(window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS)
-        trans = -trans;
-    TestUnit::u->setUnitLocation(TestUnit::u->getLocation() + trans);
-}
-
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-
-    static float lastX = xpos;
-    static float lastY = ypos;
-
-    float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // перевернуто, так как Y-координаты идут снизу вверх
-
-    lastX = xpos;
-    lastY = ypos;
-
-    RCamera* camera = RManager::getRManager()->getActiveCamera();
-    camera->setRotation(camera->getRotation() + vec3{ yoffset * 0.01f, 0.0f, -xoffset * 0.01f});
-}
+vec2 RManager::m_windowSize{ 1000, 1000 };
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
+    RManager::setWindowSize(vec2{ (float)width, (float)height });
     glViewport(0, 0, width, height);
 }
 
@@ -109,13 +41,11 @@ void RManager::addRObject(RObject* mesh)
 
 void RManager::init()
 {
-    ASSERT(!m_rManager, "RenderManager reinitialization")
+    ASSERT(!m_rManager, "RManager reinitialization")
     initGLFW();
 
     m_rManager = new RManager();
     m_rManager->createWindow();
-
-    glfwSetCursorPosCallback(m_window, mouse_callback);
 
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -127,13 +57,15 @@ void RManager::init()
     stbi_set_flip_vertically_on_load(true);
 
     glEnable(GL_DEPTH_TEST);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
 }
 
 bool RManager::drawFrame() const
 {
-    processInput(m_window);
-
-    glClearColor(0.05f, 0.50f, 0.25f, 1.0f);
+    glClearColor(241.0f/256.0f, 26.0f/256.0f, 128.0f/256.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
@@ -155,7 +87,6 @@ bool RManager::drawFrame() const
 
 RManager::RManager()
 {
-    m_activeCamera = new RCamera(Transform{});
 }
 
 RManager::~RManager()

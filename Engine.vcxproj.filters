@@ -81,6 +81,24 @@
     <ClCompile Include="game\render\LandscapeFragment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game\render\PerlinNoise\math_2d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\render\PerlinNoise\PerlinNoise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\render\PerlinNoise\SuperPerlinNoise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="event\IManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\units\SpectatorCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="level\LevelInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="render\RManager.h">
@@ -146,5 +164,37 @@
     <ClInclude Include="game\render\LandscapeFragment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="game\render\PerlinNoise\math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\render\PerlinNoise\math_2d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\render\PerlinNoise\PerlinNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\render\PerlinNoise\SuperPerlinNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="event\EEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="other\debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="event\IManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\units\SpectatorCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="level\LevelInstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="game\render\PerlinNoise\math.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@ TestUnit* TestUnit::u;
 TestUnit::TestUnit(Transform transform, Level* lvl)
 	: Unit(lvl)
 	, LocatedObject{transform}
-	, RMesh{ 1, 1 }
+	, RMesh{ 2, 1 }
 {
 	u = this;
 	//Mesh* mesh = new Mesh{ Transform{}, 0, 1 };

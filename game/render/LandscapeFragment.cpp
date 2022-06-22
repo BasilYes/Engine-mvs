@@ -3,6 +3,7 @@
 #include "other/math/matrix.h"
 #include "render/RCamera.h"
 #include "asset/assets/AShader.h"
+#include "PerlinNoise/SuperPerlinNoise.h"
 
 LandscapeFragment::LandscapeFragment(Transform transform, unsigned int sizeX, unsigned int sizeY)
 	: LocatedObject{ transform }, m_sizeX{ sizeX }, m_sizeY{ sizeY }, m_shader{ AManager::getAManager().getShader(1) }
@@ -13,7 +14,8 @@ LandscapeFragment::LandscapeFragment(Transform transform, unsigned int sizeX, un
 
 float func(unsigned int x, unsigned int y)
 {
-	return (x+y)%2;
+	static SuperPerlinNoise Noise(32, 32, 4, 4, 128, 5, 1);
+	return (int)(Noise.getPoint(x,y)*100.0f)/2.0f;
 }
 
 void LandscapeFragment::updateMesh()
@@ -27,25 +29,20 @@ void LandscapeFragment::updateMesh()
 	for (x = 0; x < m_sizeX; x++)
 	{
 		m_vertices[vertexId].position = vec3{ (float)x, 0.0f, func(x,0) };
-		m_vertices[vertexId].normal = vec3{ 0.0f, 0.0f, 1.0f };
 		vertexId++;
-		for (y = 1; y < m_sizeX; y++)
+		for (y = 1; y < m_sizeY; y++)
 		{
 			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) };
-			m_vertices[vertexId].normal = vec3{ 1.0f, 0.0f, 0.0f };
 			vertexId++;
 			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) };
-			m_vertices[vertexId].normal = vec3{ 1.0f, 0.0f, 0.0f };
 			vertexId++;
 		}
 		m_vertices[vertexId].position = vec3{ (float)x, (float)m_sizeY, func(x, m_sizeY) };
-		m_vertices[vertexId].normal = vec3{ 0.0f, 0.0f, 1.0f };
 		vertexId++;
 	}
 	for (y = 0; y <= m_sizeY; y++)
 	{
 		m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) };
-		m_vertices[vertexId].normal = vec3{ 0.0f, 1.0f, 0.0f };
 		vertexId++;
 	}
 
@@ -62,7 +59,6 @@ void LandscapeFragment::updateMesh()
 				m_indices[vertexId * 3 + 2] = vertexId;
 				m_vertices[vertexId].normal = cross(m_vertices[vertexId + m_sizeY * 2].position - m_vertices[vertexId].position,
 					m_vertices[vertexId + m_sizeY * 2 + 1].position - m_vertices[vertexId].position).normalize();
-					//m_vertices[vertexId].normal = vec3{ 0.5, 1.0, 0.3 };
 				vertexId++;
 
 				m_indices[vertexId * 3] = vertexId - 1;
@@ -70,25 +66,22 @@ void LandscapeFragment::updateMesh()
 				m_indices[vertexId * 3 + 2] = vertexId;
 				m_vertices[vertexId].normal = cross(m_vertices[vertexId - 1].position - m_vertices[vertexId].position,
 					m_vertices[vertexId + m_sizeY * 2].position - m_vertices[vertexId].position).normalize();
-					//m_vertices[vertexId].normal = vec3{ 0.5, 1.0, 0.3 };
 				vertexId++;
 			}
 			else
 			{
-				m_indices[vertexId * 3] = vertexId + 1;
-				m_indices[vertexId * 3 + 1] = vertexId + m_sizeY * 2;
+				m_indices[vertexId * 3] = vertexId + m_sizeY * 2;
+				m_indices[vertexId * 3 + 1] = vertexId + 1;
 				m_indices[vertexId * 3 + 2] = vertexId;
 				m_vertices[vertexId].normal = cross(m_vertices[vertexId + m_sizeY * 2].position - m_vertices[vertexId].position,
 					m_vertices[vertexId + 1].position - m_vertices[vertexId].position).normalize();
-					//m_vertices[vertexId].normal = vec3{ 0.5, 1.0, 0.3 };
 				vertexId++;
 
-				m_indices[vertexId * 3] = vertexId + m_sizeY * 2;
-				m_indices[vertexId * 3 + 1] = vertexId + m_sizeY * 2 - 1;
+				m_indices[vertexId * 3] = vertexId + m_sizeY * 2 - 1;
+				m_indices[vertexId * 3 + 1] = vertexId + m_sizeY * 2;
 				m_indices[vertexId * 3 + 2] = vertexId;
 				m_vertices[vertexId].normal = cross(m_vertices[vertexId + m_sizeY * 2 - 1].position - m_vertices[vertexId].position,
 					m_vertices[vertexId + m_sizeY * 2].position - m_vertices[vertexId].position).normalize();
-					//m_vertices[vertexId].normal = vec3{ 0.5, 1.0, 0.3 };
 				vertexId++;
 			}
 		}
@@ -103,7 +96,6 @@ void LandscapeFragment::updateMesh()
 			m_indices[vertexId * 3 + 2] = vertexId;
 			m_vertices[vertexId].normal = cross(m_vertices[lastRaw].position - m_vertices[vertexId].position,
 				m_vertices[lastRaw + 1].position - m_vertices[vertexId].position).normalize();
-				//m_vertices[vertexId].normal = vec3{ 0, 0, 0 };
 			vertexId++; lastRaw++;
 
 			m_indices[vertexId * 3] = vertexId - 1;
@@ -111,7 +103,6 @@ void LandscapeFragment::updateMesh()
 			m_indices[vertexId * 3 + 2] = vertexId;
 			m_vertices[vertexId].normal = cross(m_vertices[vertexId - 1].position - m_vertices[vertexId].position,
 				m_vertices[lastRaw].position - m_vertices[vertexId].position).normalize();
-				//m_vertices[vertexId].normal = vec3{ 0, 0, 0 };
 			vertexId++;
 		}
 		else
@@ -121,7 +112,6 @@ void LandscapeFragment::updateMesh()
 			m_indices[vertexId * 3 + 2] = vertexId;
 			m_vertices[vertexId].normal = cross(m_vertices[lastRaw].position - m_vertices[vertexId].position,
 				m_vertices[vertexId + 1].position - m_vertices[vertexId].position).normalize();
-				//m_vertices[vertexId].normal = vec3{ 0, 0, 0 };
 			vertexId++; lastRaw++;
 
 			m_indices[vertexId * 3] = lastRaw - 1;
@@ -129,7 +119,6 @@ void LandscapeFragment::updateMesh()
 			m_indices[vertexId * 3 + 2] = vertexId;
 			m_vertices[vertexId].normal = cross(m_vertices[lastRaw - 1].position - m_vertices[vertexId].position,
 				m_vertices[lastRaw].position - m_vertices[vertexId].position).normalize();
-				//m_vertices[vertexId].normal = vec3{ 0, 0, 0 };
 			vertexId++;
 		}
 	}

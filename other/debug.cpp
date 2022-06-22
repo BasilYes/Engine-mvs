@@ -1,4 +1,4 @@
-#include <debug.h>
+#include "debug.h"
 
 #if _DEBUG
 #include <string>
@@ -26,5 +26,16 @@ void my_assert(bool is, const char* message, const char* file, const int line)
 	}
 }
 #else
-
+void error(const char* message, const char* file, const int line)
+{
+}
+void warning(const char* message, const char* line, const char* file)
+{
+}
+void trace(const char* message, const char* file, const int line)
+{
+}
+void my_assert(bool is, const char* message, const char* file, const int line)
+{
+}
 #endif

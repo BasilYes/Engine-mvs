@@ -14,8 +14,11 @@ public:
 	static RManager* getRManager() { return m_rManager; }
 
 	bool drawFrame() const;
-	vec2 getWindowSize() const { return m_windowSize; }
+	static vec2 getWindowSize() { return m_windowSize; }
+	static void setWindowSize(vec2 windowSize) { m_windowSize = windowSize; }
+	static GLFWwindow* getWindow() { return m_window; }
 	RCamera* getActiveCamera() const { return m_activeCamera; }
+	void setActiveCamera(RCamera* camera) { m_activeCamera = camera; }
 	void addMesh(RMesh* mesh);
 	void addRObject(RObject* mesh);
 private:

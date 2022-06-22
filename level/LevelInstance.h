@@ -2,22 +2,20 @@
 #include "other/LinkedList.h"
 class LocatedObject;
 class Unit;
-class LevelInstance;
-class Level
+class LevelInstance
 {
 public:
-
-	static void init(Level* lvl);
-	static Level* getActiveLevel() { return m_activeLevel; }
-	void tick();
-
 	void attachObject(LocatedObject* object);
 	void attachUnit(Unit* unit);
-	Level();
-	~Level();
+	void tick();
 private:
-	static Level* m_activeLevel;
-	LevelInstance* m_activeInstance;
+	float m_offsetX;
+	float m_offsetY;
+	LevelInstance* m_higherX;
+	LevelInstance* m_lowerX;
+	LevelInstance* m_higherY;
+	LevelInstance* m_lowerY;
 	LincedList<LocatedObject> m_objects;
 	LincedList<Unit> m_units;
 };
+
