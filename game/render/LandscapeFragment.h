@@ -15,14 +15,13 @@ class LandscapeFragment
 	, public LocatedObject
 {
 public:
-	LandscapeFragment(Transform transform, unsigned int sizeX, unsigned int sizeY);
+	LandscapeFragment(Transform transform, vec3 offset, unsigned int sizeX, unsigned int sizeY);
 	void setupSegment();
 	void updateMesh();
 private:
 	unsigned int m_sizeX;
 	unsigned int m_sizeY;
-	unsigned int m_offsetX;
-	unsigned int m_offsetY;
+	vec3 m_offset;
 	std::vector<vertex> m_vertices;
 	std::vector<unsigned int> m_indices;
 	ARef<AShader> m_shader;

@@ -18,8 +18,8 @@ MyLevel::MyLevel()
 	//Mesh* mesh = new Mesh{ Transform{vec3{},vec3{}, vec3{1.0f,1.0f,1.0f}} , 1, 1 };
 	//attachObject(mesh);
 	//RManager::getRManager()->addMesh(mesh);
-	SpectatorCamera* cam = new SpectatorCamera{ Transform{}, getActiveInstance() };
-	getActiveInstance()->attachUnit(cam);
+	SpectatorCamera* cam = new SpectatorCamera{ Transform{}, getCoreInstance() };
+	getCoreInstance()->attachUnit(cam);
 	RManager::getRManager()->setActiveCamera(cam);
 
 	//LandscapeFragment* l_frag = new LandscapeFragment(Transform{ vec3{},vec3{0.0f, 0.0f, 0.0f}, vec3{1.0f,1.0f,1.0f} }, 512, 512);

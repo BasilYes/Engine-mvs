@@ -5,8 +5,8 @@
 #include "asset/assets/AShader.h"
 #include "PerlinNoise/SuperPerlinNoise.h"
 
-LandscapeFragment::LandscapeFragment(Transform transform, unsigned int sizeX, unsigned int sizeY)
-	: LocatedObject{ transform }, m_sizeX{ sizeX }, m_sizeY{ sizeY }, m_shader{ AManager::getAManager().getShader(1) }
+LandscapeFragment::LandscapeFragment(Transform transform, vec3 offset, unsigned int sizeX, unsigned int sizeY)
+	: LocatedObject{ transform }, m_offset{ offset }, m_sizeX{sizeX}, m_sizeY{sizeY}, m_shader{ AManager::getAManager().getShader(1) }
 {
 	updateMesh();
 	setupSegment();
@@ -28,21 +28,21 @@ void LandscapeFragment::updateMesh()
 	unsigned int y = 0, x = 0;
 	for (x = 0; x < m_sizeX; x++)
 	{
-		m_vertices[vertexId].position = vec3{ (float)x, 0.0f, func(x + m_offsetX,m_offsetY) };
+		m_vertices[vertexId].position = vec3{ (float)x, 0.0f, func(x + m_offset.data[0],m_offset.data[1]) - m_offset.data[2] };
 		vertexId++;
 		for (y = 1; y < m_sizeY; y++)
 		{
-			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offsetX,y + m_offsetY) };
+			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offset.data[0],y + m_offset.data[1]) - m_offset.data[2] };
 			vertexId++;
-			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offsetX,y + m_offsetY) };
+			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offset.data[0],y + m_offset.data[1]) - m_offset.data[2] };
 			vertexId++;
 		}
-		m_vertices[vertexId].position = vec3{ (float)x, (float)m_sizeY, func(x + m_offsetX, m_sizeY + m_offsetY) };
+		m_vertices[vertexId].position = vec3{ (float)x, (float)m_sizeY, func(x + m_offset.data[0], m_sizeY + m_offset.data[1]) - m_offset.data[2] };
 		vertexId++;
 	}
 	for (y = 0; y <= m_sizeY; y++)
 	{
-		m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offsetX,y + m_offsetY) };
+		m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offset.data[0],y + m_offset.data[1]) - m_offset.data[2] };
 		vertexId++;
 	}
 

@@ -11,7 +11,8 @@ void Level::init(Level* lvl)
 
 void Level::initInstance()
 {
-	m_activeInstance = createLevelInstance(0.0f, 0.0f);
+	m_coreInstance = createLevelInstance(vec3{ 0.0f, 0.0f, 0.0f });
+	m_coreInstance->m_higherX = createLevelInstance(vec3{ 128.0f, 0.0f, 0.0f });
 }
 
 LevelInstance* Level::createLevelInstance(vec3 offset)
@@ -21,7 +22,7 @@ LevelInstance* Level::createLevelInstance(vec3 offset)
 
 void Level::tick()
 {
-	m_activeInstance->tick();
+	m_coreInstance->tick();
 }
 
 Level::Level()
@@ -30,5 +31,5 @@ Level::Level()
 
 Level::~Level()
 {
-	delete m_activeInstance;
+	delete m_coreInstance;
 }

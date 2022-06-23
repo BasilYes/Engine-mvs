@@ -14,7 +14,7 @@ public:
 	{}
 
 	mat4 getViewMatrix() const { return m_viewMatrix; }
-	void updateViewMatrix(const RManager* manager);
+	void updateViewMatrix(vec3 location, vec3 rotation);
 private:
 	mat4 m_viewMatrix;
 };

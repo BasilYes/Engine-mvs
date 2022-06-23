@@ -1,8 +1,11 @@
-#include "LevelInstance.h"
 #include "Unit.h"
+#include "LevelInstance.h"
+#include "render/RManager.h"
+#include "render/RInstance.h"
 
 LevelInstance::LevelInstance(vec3 offset)
 	:m_offset{ offset }
+	,m_ownedRInstance{RManager::getRManager()->addRInstance(this)}
 {
 }
 
@@ -20,6 +23,7 @@ LevelInstance::~LevelInstance()
 		delete object->getContent();
 		object = object->getNext();
 	}
+	delete m_ownedRInstance;
 }
 
 void LevelInstance::attachObject(LocatedObject* object)
@@ -31,6 +35,11 @@ void LevelInstance::attachUnit(Unit* unit)
 {
 	m_units.pushFront(unit);
 	unit->m_levelInstance = this;
+}
+
+void LevelInstance::attachRObject(RObject* obj)
+{
+	m_ownedRInstance->addRObject(obj);
 }
 
 void LevelInstance::tick()

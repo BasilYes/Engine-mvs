@@ -1,7 +1,7 @@
 #pragma once
 #include "other/LinkedList.h"
 class RCamera;
-class RManager;
+class RInstance;
 class RObject
 {
 public:
@@ -10,5 +10,5 @@ public:
 private:
 	virtual void draw(const RCamera* camera) const = 0;
 	LincedListItem<const RObject>* m_selfRef;
-	friend RManager;
+	friend class RInstance;
 };

@@ -1,10 +1,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <debug.h>
-#include "RManager.h"
-#include "RCamera.h"
-#include "renderable_object/RMesh.h"
 #include "stb_image.h"
+
+#include "RManager.h"
+
+#include "RCamera.h"
+#include "render/RInstance.h"
 
 RManager* RManager::m_rManager = nullptr;
 GLFWwindow* RManager::m_window = nullptr;
@@ -26,17 +28,6 @@ void initGLFW()
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-}
-
-void RManager::addMesh(RMesh* mesh)
-{
-    m_rManager->m_drawList.pushFront(mesh);
-    mesh->RObject::m_selfRef = m_drawList.getFirst();
-}
-void RManager::addRObject(RObject* mesh)
-{
-    m_rManager->m_drawList.pushFront(mesh);
-    mesh->RObject::m_selfRef = m_drawList.getFirst();
 }
 
 void RManager::init()
@@ -70,8 +61,7 @@ bool RManager::drawFrame() const
 
 
 
-    m_activeCamera->updateViewMatrix(this);
-    LincedListItem<const RObject>* item = m_drawList.getFirst();
+    LincedListItem<const RInstance>* item = m_instanceList.getFirst();
     while (item)
     {
         item->getContent()->draw(m_activeCamera);
@@ -83,6 +73,13 @@ bool RManager::drawFrame() const
     glfwSwapBuffers(m_window);
     glfwPollEvents();
     return !glfwWindowShouldClose(m_window);
+}
+
+RInstance* RManager::addRInstance(LevelInstance* ownLInstance)
+{
+    RInstance* instance = new RInstance(ownLInstance);
+    m_instanceList.pushFront(instance);
+    return instance;
 }
 
 RManager::RManager()

@@ -3,9 +3,9 @@
 #include "other/LinkedList.h"
 struct GLFWwindow;
 class RCamera;
-class RObject;
+class RInstance;
 class RMesh;
-
+class LevelInstance;
 
 class RManager
 {
@@ -19,8 +19,8 @@ public:
 	static GLFWwindow* getWindow() { return m_window; }
 	RCamera* getActiveCamera() const { return m_activeCamera; }
 	void setActiveCamera(RCamera* camera) { m_activeCamera = camera; }
-	void addMesh(RMesh* mesh);
-	void addRObject(RObject* mesh);
+	RInstance* addRInstance(LevelInstance* ownLInstance);
+
 private:
 	static RManager* m_rManager;
 
@@ -28,7 +28,7 @@ private:
 	static vec2 m_windowSize;
 
 	RCamera* m_activeCamera;
-	LincedList<const RObject> m_drawList;
+	LincedList<const RInstance> m_instanceList;
 
 	RManager();
 	~RManager();
