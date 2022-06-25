@@ -12,6 +12,13 @@ LandscapeFragment::LandscapeFragment(Transform transform, vec3 offset, unsigned 
 	setupSegment();
 }
 
+LandscapeFragment::~LandscapeFragment()
+{
+	glDeleteBuffers(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+}
+
 float func(unsigned int x, unsigned int y)
 {
 	static SuperPerlinNoise Noise(32, 32, 4, 4, 512, 8, 1);
@@ -145,7 +152,7 @@ void LandscapeFragment::setupSegment()
 	glBindVertexArray(0);
 }
 
-void LandscapeFragment::draw(const RCamera* camera) const
+void LandscapeFragment::draw(RCamera* camera) const
 {
 	mat4 view = camera->getViewMatrix();
 	mat4 scale, rotate, transl, model;

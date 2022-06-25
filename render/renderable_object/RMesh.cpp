@@ -30,7 +30,7 @@ RMesh::RMesh(unsigned int modelKey, std::vector<unsigned int> shadersKeys)
 	}
 }
 
-void RMesh::draw(const RCamera* camera) const
+void RMesh::draw(RCamera* camera) const
 {
 	mat4 view = camera->getViewMatrix();
 	mat4 scale, rotate, transl, model;

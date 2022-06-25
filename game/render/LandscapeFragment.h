@@ -11,11 +11,12 @@ struct vertex
 	//vec3 color;	
 };
 class LandscapeFragment
-	: public RObject
-	, public LocatedObject
+	: public LocatedObject
+	, public RObject
 {
 public:
 	LandscapeFragment(Transform transform, vec3 offset, unsigned int sizeX, unsigned int sizeY);
+	~LandscapeFragment();
 	void setupSegment();
 	void updateMesh();
 private:
@@ -26,5 +27,5 @@ private:
 	std::vector<unsigned int> m_indices;
 	ARef<AShader> m_shader;
 	unsigned int VAO, VBO, EBO;
-	void draw(const RCamera* camera) const override;
+	void draw(RCamera* camera) const override;
 };

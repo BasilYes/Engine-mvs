@@ -79,6 +79,7 @@ RInstance* RManager::addRInstance(LevelInstance* ownLInstance)
 {
     RInstance* instance = new RInstance(ownLInstance);
     m_instanceList.pushFront(instance);
+    instance->m_selfRef = m_instanceList.getFirst();
     return instance;
 }
 

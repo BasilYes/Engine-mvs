@@ -55,12 +55,11 @@ public:
 	static void remove(LincedListItem<Type>* item)
 	{
 		ASSERT(item->m_prev, "You can't remove begin of list")
-		if(!item->m_next && !item->m_prev )
-			if (item->m_next)
-				item->m_next->m_prev = item->m_prev;
-			if (item->m_prev)
-				item->m_prev->m_next = item->m_next;
-			delete item;
+		if (item->m_next)
+			item->m_next->m_prev = item->m_prev;
+		if (item->m_prev)
+			item->m_prev->m_next = item->m_next;
+		delete item;
 	}
 	~LincedList()
 	{

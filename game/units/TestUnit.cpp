@@ -15,11 +15,7 @@ TestUnit::TestUnit(Transform transform, LevelInstance* lvl)
 	updateTreeTransform();
 }
 
-void TestUnit::draw(const RCamera* camera) const
+void TestUnit::draw(RCamera* camera) const
 {
 	RMesh::draw(camera);
-}
-
-void TestUnit::remove()
-{
 }

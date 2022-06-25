@@ -2,6 +2,10 @@
 #include "level/Unit.h"
 #include "render/RCamera.h"
 #include "event/IManager.h"
+
+
+#include "level/Level.h"
+
 class SpectatorCamera
 	: public RCamera
 	, public Unit
@@ -10,6 +14,7 @@ public:
 	SpectatorCamera(Transform transform, LevelInstance* lvl);
 private:
 	void remove() override;
+	void attach(LevelInstance* instance) override;
 	class MoveForaward : public EEvent<float>
 	{
 	public:

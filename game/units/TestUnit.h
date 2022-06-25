@@ -9,6 +9,5 @@ public:
 	static TestUnit* u;
 	TestUnit(Transform transform, LevelInstance* lvl);
 private:
-	void draw(const RCamera* camera) const override;
-	void remove() override;
+	void draw(RCamera* camera) const override;
 };

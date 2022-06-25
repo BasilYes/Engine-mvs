@@ -6,7 +6,7 @@ Mesh::Mesh(Transform transform, unsigned int modelKey, unsigned int shaderKey)
 {
 }
 
-void Mesh::draw(const RCamera* camera) const
+void Mesh::draw(RCamera* camera) const
 {
 	RMesh::draw(camera);
 }

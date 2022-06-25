@@ -10,9 +10,10 @@ public:
 
 	static void init(Level* lvl);
 	static Level* getActiveLevel() { return m_activeLevel; }
-	void initInstance();
-	virtual LevelInstance* createLevelInstance(vec3 offset);
+	virtual void load();
+	virtual LevelInstance* createLevelInstance(vec3 offset, vec2 size) = 0;
 	LevelInstance* getCoreInstance() { return m_coreInstance; }
+	void updateCoreInstanse(LevelInstance* newInstance);
 	void tick();
 
 	Level();

@@ -6,7 +6,7 @@ class RCamera;
 class RInstance;
 class RMesh;
 class LevelInstance;
-
+class RObject;
 class RManager
 {
 public:

@@ -11,6 +11,8 @@ RInstance::RInstance(LevelInstance* ownInstance)
 
 RInstance::~RInstance()
 {
+    if (m_selfRef)
+        LincedList<const RInstance>::remove(m_selfRef);
 }
 
 void RInstance::addRObject(RObject* mesh)

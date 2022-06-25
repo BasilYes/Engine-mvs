@@ -15,7 +15,7 @@ public:
 	RMesh(unsigned int modelKey, unsigned int shaderKey);
 	RMesh(unsigned int modelKey, std::vector<unsigned int> shadersKeys);
 protected:
-	void draw(const RCamera* camera) const override = 0;
+	void draw(RCamera* camera) const override = 0;
 private:
 	std::vector<ARef<AShader>> m_shaders;
 	ARef<AModel> m_model;

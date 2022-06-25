@@ -22,6 +22,7 @@ public:
 	void setUnitRotation(const vec3 rotation);
 	void setUnitTransform(const Transform transform);
 	void tick() override;
+	virtual void attach(LevelInstance* instance);
 	void remove() = 0;
 
 protected:
@@ -37,7 +38,7 @@ private:
 
 	LocatedComponent *m_locatedComponentTree;
 	LincedList<Component> m_logicalComponents;
+	LincedListItem<Unit>* m_selfRef;
 	LevelInstance *m_levelInstance;
-	friend class Level;
-	friend class LevelInstance;
+	friend LevelInstance;
 };

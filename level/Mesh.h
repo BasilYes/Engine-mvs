@@ -6,6 +6,6 @@ class Mesh
 public:
 	Mesh(Transform transform, unsigned int modelKey, unsigned int shaderKey);
 private:
-	void draw(const RCamera* camera) const override;
+	void draw(RCamera* camera) const override;
 };
 

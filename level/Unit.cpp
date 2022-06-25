@@ -1,5 +1,6 @@
 #include "Unit.h"
 #include "LocatedComponent.h"
+#include "level/LevelInstance.h"
 #include "Component.h"
 
 Unit::Unit(LevelInstance* lvl)
@@ -55,6 +56,8 @@ void Unit::setUnitScale(const vec3 scale)
 void Unit::setUnitLocation(const vec3 location)
 {
 	setLocation(location);
+	if (m_levelInstance->updateUnitLocation(this))
+		return;
 	updateTreeTransform();
 }
 
@@ -78,4 +81,14 @@ void Unit::tick()
 		item->getContent()->tick();
 		item = item->getNext();
 	}
+}
+
+void Unit::remove()
+{
+	LincedList<Unit>::remove(m_selfRef);
+}
+
+void Unit::attach(LevelInstance* instance)
+{
+	m_levelInstance = instance;
 }
