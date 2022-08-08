@@ -105,6 +105,9 @@
     <ClCompile Include="render\RInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="level\movenent\MovementComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="render\RManager.h">
@@ -152,7 +155,7 @@
     <ClInclude Include="level\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="level\Component.h">
+    <ClInclude Include="level\LogicalComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level\Unit.h">
@@ -201,6 +204,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="render\RInstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="level\movenent\MovementComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

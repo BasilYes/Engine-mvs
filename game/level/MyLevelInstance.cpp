@@ -3,15 +3,10 @@
 #include "render/RManager.h"
 
 
-MyLevelInstance::MyLevelInstance(vec3 offset, vec2 size)
-	:LevelInstance(offset, size)
+MyLevelInstance::MyLevelInstance(vec3 offset, vec2 size, uvec2 position, Level* level)
+	:LevelInstance(offset, size, position, level)
 {
-	LandscapeFragment* l_frag = new LandscapeFragment(Transform{ vec3{0.0f, 0.0f, 0.0f}, vec3{}, vec3{1.0f,1.0f,1.0f} }, offset, size[0], size[1]);
+	LandscapeFragment* l_frag = new LandscapeFragment(Transform{ vec3{0.0f, 0.0f, 0.0f}, vec3{}, vec3{1.0f,1.0f,1.0f} }, offset, size[0], size[1], this);
 	attachRObject(l_frag);
 	attachObject(l_frag);
-}
-
-LevelInstance* MyLevelInstance::createLevelInstance(vec3 offset, vec2 size)
-{
-	return new MyLevelInstance{offset, size};
 }

@@ -6,5 +6,5 @@ class MyLevel
 public:
 	MyLevel();
 	void load() override;
-	LevelInstance* createLevelInstance(vec3 offset, vec2 size) override;
+	LevelInstance* createLevelInstance(vec3 offset, vec2 size, uvec2 position) override;
 };

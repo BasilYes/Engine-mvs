@@ -3,6 +3,7 @@
 #include "other/math/vector.h"
 #include "level/LocatedObject.h"
 #include "asset/AManager.h"
+#include "level/Unit.h"
 #include <vector>
 struct vertex
 {
@@ -11,12 +12,17 @@ struct vertex
 	//vec3 color;	
 };
 class LandscapeFragment
-	: public LocatedObject
+	: public Unit
 	, public RObject
 {
 public:
-	LandscapeFragment(Transform transform, vec3 offset, unsigned int sizeX, unsigned int sizeY);
+	LandscapeFragment(Transform transform, vec3 offset, unsigned int sizeX, unsigned int sizeY, LevelInstance* lvl);
 	~LandscapeFragment();
+
+	void remove() override { Unit::remove(); }
+
+	float func(unsigned int x, unsigned int y);
+
 	void setupSegment();
 	void updateMesh();
 private:

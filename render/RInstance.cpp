@@ -23,8 +23,7 @@ void RInstance::addRObject(RObject* mesh)
 
 void RInstance::draw(RCamera* camera) const
 {
-    LevelInstance* coreInstance = Level::getActiveLevel()->getCoreInstance();
-    camera->updateViewMatrix(camera->getLocation() + coreInstance->getOffset() - m_ownInstance->getOffset(), camera->getRotation());
+    camera->updateViewMatrix(camera->getLocation() - m_ownInstance->getOffset(), camera->getRotation());
     LincedListItem<const RObject>* item = m_drawList.getFirst();
     while (item)
     {

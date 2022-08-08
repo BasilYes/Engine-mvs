@@ -1,7 +1,6 @@
 #include "Unit.h"
 #include "LocatedComponent.h"
 #include "level/LevelInstance.h"
-#include "Component.h"
 
 Unit::Unit(LevelInstance* lvl)
 	: m_levelInstance{ lvl }
@@ -75,7 +74,7 @@ void Unit::setUnitTransform(const Transform transform)
 
 void Unit::tick()
 {
-	LincedListItem<Component>* item = m_logicalComponents.getFirst();
+	LincedListItem<LogicalComponent>* item = m_logicalComponents.getFirst();
 	while (item)
 	{
 		item->getContent()->tick();

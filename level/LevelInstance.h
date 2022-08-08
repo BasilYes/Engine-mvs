@@ -9,29 +9,30 @@ class Level;
 class LevelInstance
 {
 public:
-	LevelInstance(vec3 offset, vec2 size);
 	virtual ~LevelInstance();
-	virtual LevelInstance* createLevelInstance(vec3 offset, vec2 size) = 0;
+
 	vec3 getOffset() { return m_offset; }
+	uvec2 getPosition() { return m_position; }
+	Level* getOwningLevel() { return m_owningLevel; }
+
+	void tick();
+
 	bool updateUnitLocation(Unit* unit);
+
 	void attachObject(LocatedObject* object);
 	void attachUnit(Unit* unit);
 	void attachRObject(RObject* obj);
-	void tick();
-private:
-	void updateCoreInstanse();
+
+protected:
+	LevelInstance(vec3 offset, vec2 size, uvec2 position, Level* owningLevel);
 	void updateInstanse();
-	void updateUp(LevelInstance* core);
-	void updateDown(LevelInstance* core);
-	void updateRight(LevelInstance* core);
-	void updateLeft(LevelInstance* core);
+
+private:
 	vec3 m_offset;
 	vec2 m_size;
+	uvec2 m_position;
 	RInstance* m_ownedRInstance;
-	LevelInstance* m_higherX = nullptr;
-	LevelInstance* m_lowerX = nullptr;
-	LevelInstance* m_higherY = nullptr;
-	LevelInstance* m_lowerY = nullptr;
+	Level* m_owningLevel;
 	LincedList<LocatedObject> m_objects;
 	LincedList<Unit> m_units;
 	friend Level;

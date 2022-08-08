@@ -1,5 +1,6 @@
 #include "SpectatorCamera.h"
 #include "other/math/matrix.h"
+#include "level/LevelInstance.h"
 
 SpectatorCamera::SpectatorCamera(Transform transform, LevelInstance* lvl)
 	: Unit(lvl)
@@ -19,7 +20,7 @@ void SpectatorCamera::remove()
 void SpectatorCamera::attach(LevelInstance* instance)
 {
 	Unit::attach(instance);
-	Level::getActiveLevel()->updateCoreInstanse(instance);
+	Level::getActiveLevel()->updateCoreInstanse(instance->getPosition());
 }
 
 void SpectatorCamera::MoveForaward::call(float axis)

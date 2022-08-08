@@ -1,21 +1,23 @@
 #pragma once
-#include "Component.h"
+#include "LogicalComponent.h"
 #include "LocatedObject.h"
 #include "other/LinkedList.h"
 
-class Component;
+class LogicalComponent;
 class LocatedComponent;
 class Level;
 class LevelInstance;
 
 class Unit
-	: public Component
+	: public LogicalComponent
 	, public virtual LocatedObject
 {
 public:
 	Unit(LevelInstance* lvl);
 	//Unit(Transform transform, Level* lvl);
 	virtual ~Unit();
+
+	LevelInstance* getLevelInstance() { return m_levelInstance; }
 
 	void setUnitScale(const vec3 scale);
 	void setUnitLocation(const vec3 location);
@@ -37,7 +39,7 @@ private:
 	using LocatedObject::setTransform;
 
 	LocatedComponent *m_locatedComponentTree;
-	LincedList<Component> m_logicalComponents;
+	LincedList<LogicalComponent> m_logicalComponents;
 	LincedListItem<Unit>* m_selfRef;
 	LevelInstance *m_levelInstance;
 	friend LevelInstance;

@@ -153,6 +153,7 @@
     <ClCompile Include="event\IManager.cpp" />
     <ClCompile Include="level\LevelInstance.cpp" />
     <ClCompile Include="level\LocatedObject.cpp" />
+    <ClCompile Include="level\movenent\MovementComponent.cpp" />
     <ClCompile Include="Level\Unit.cpp" />
     <ClCompile Include="asset\ARef.cpp" />
     <ClCompile Include="asset\assets\AShader.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="game\render\PerlinNoise\SuperPerlinNoise.h" />
     <ClInclude Include="event\IManager.h" />
     <ClInclude Include="level\LevelInstance.h" />
+    <ClInclude Include="level\movenent\MovementComponent.h" />
     <ClInclude Include="Level\Unit.h" />
     <ClInclude Include="asset\ARef.h" />
     <ClInclude Include="asset\assets\AShader.h" />
@@ -193,7 +195,7 @@
     <ClInclude Include="asset\AManager.h" />
     <ClInclude Include="level\Level.h" />
     <ClInclude Include="Level\LocatedComponent.h" />
-    <ClInclude Include="level\Component.h" />
+    <ClInclude Include="level\LogicalComponent.h" />
     <ClInclude Include="game\level\MyLevel.h" />
     <ClInclude Include="level\Mesh.h" />
     <ClInclude Include="game\level\MyLevelInstance.h" />

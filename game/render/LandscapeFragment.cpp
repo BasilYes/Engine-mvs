@@ -4,9 +4,14 @@
 #include "render/RCamera.h"
 #include "asset/assets/AShader.h"
 #include "PerlinNoise/SuperPerlinNoise.h"
+#include "level/LevelInstance.h"
+#include "level/Level.h"
 
-LandscapeFragment::LandscapeFragment(Transform transform, vec3 offset, unsigned int sizeX, unsigned int sizeY)
+
+LandscapeFragment::LandscapeFragment(Transform transform, vec3 offset, unsigned int sizeX, unsigned int sizeY, LevelInstance* lvl)
 	: LocatedObject{ transform }, m_offset{ offset }, m_sizeX{sizeX}, m_sizeY{sizeY}, m_shader{ AManager::getAManager().getShader(1) }
+	, Unit{ lvl }
+
 {
 	updateMesh();
 	setupSegment();
@@ -19,10 +24,14 @@ LandscapeFragment::~LandscapeFragment()
 	glDeleteBuffers(1, &EBO);
 }
 
-float func(unsigned int x, unsigned int y)
+float LandscapeFragment::func(unsigned int x, unsigned int y)
 {
-	static SuperPerlinNoise Noise(32, 32, 4, 4, 512, 8, 1);
-	return (int)(Noise.getPoint(x % 2048, y % 2048) * 200.0f) / 2.0f;
+	static SuperPerlinNoise Noise(32, 32, 2, 2, 256, 8, 1);
+	uvec2 pos = getLevelInstance()->getPosition();
+	vec2 size = getLevelInstance()->getOwningLevel()->getInstancesSize();
+	x += pos.data[0] * size.data[0];
+	y += pos.data[1] * size.data[1];
+	return (int)(Noise.getPoint(x % 1024, y % 1024) * 200.0f) / 2.0f;
 }
 
 void LandscapeFragment::updateMesh()
@@ -35,21 +44,21 @@ void LandscapeFragment::updateMesh()
 	unsigned int y = 0, x = 0;
 	for (x = 0; x < m_sizeX; x++)
 	{
-		m_vertices[vertexId].position = vec3{ (float)x, 0.0f, func(x + m_offset.data[0],m_offset.data[1]) - m_offset.data[2] };
+		m_vertices[vertexId].position = vec3{ (float)x, 0.0f, func(x,0.0f) - m_offset.data[2] };
 		vertexId++;
 		for (y = 1; y < m_sizeY; y++)
 		{
-			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offset.data[0],y + m_offset.data[1]) - m_offset.data[2] };
+			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) - m_offset.data[2] };
 			vertexId++;
-			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offset.data[0],y + m_offset.data[1]) - m_offset.data[2] };
+			m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) - m_offset.data[2] };
 			vertexId++;
 		}
-		m_vertices[vertexId].position = vec3{ (float)x, (float)m_sizeY, func(x + m_offset.data[0], m_sizeY + m_offset.data[1]) - m_offset.data[2] };
+		m_vertices[vertexId].position = vec3{ (float)x, (float)m_sizeY, func(x, m_sizeY) - m_offset.data[2] };
 		vertexId++;
 	}
 	for (y = 0; y <= m_sizeY; y++)
 	{
-		m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x + m_offset.data[0],y + m_offset.data[1]) - m_offset.data[2] };
+		m_vertices[vertexId].position = vec3{ (float)x, (float)y, func(x,y) - m_offset.data[2] };
 		vertexId++;
 	}
 

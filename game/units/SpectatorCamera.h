@@ -12,6 +12,10 @@ class SpectatorCamera
 {
 public:
 	SpectatorCamera(Transform transform, LevelInstance* lvl);
+	virtual ~SpectatorCamera()
+	{
+
+	}
 private:
 	void remove() override;
 	void attach(LevelInstance* instance) override;
